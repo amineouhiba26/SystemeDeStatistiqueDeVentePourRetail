@@ -1,0 +1,46 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <div *ngIf="productCancellations">
+      <h2 data-cy="productCancellationsDetailsHeading">
+        <span jhiTranslate="ssvrApp.productCancellations.detail.title">Product Cancellations</span>
+      </h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="ssvrApp.productCancellations.id">Id</span></dt>
+        <dd>
+          <span>{{ productCancellations.id }}</span>
+        </dd>
+        <dt><span jhiTranslate="ssvrApp.productCancellations.reason">Reason</span></dt>
+        <dd>
+          <span>{{ productCancellations.reason }}</span>
+        </dd>
+        <dt><span jhiTranslate="ssvrApp.productCancellations.orderItem">Order Item</span></dt>
+        <dd>
+          <div *ngIf="productCancellations.orderItem">
+            <a [routerLink]="['/order-item', productCancellations.orderItem.id, 'view']">{{ productCancellations.orderItem.id }}</a>
+          </div>
+        </dd>
+        <dt><span jhiTranslate="ssvrApp.productCancellations.order">Order</span></dt>
+        <dd>
+          <div *ngIf="productCancellations.order">
+            <a [routerLink]="['/order', productCancellations.order.id, 'view']">{{ productCancellations.order.id }}</a>
+          </div>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/product-cancellations', productCancellations.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

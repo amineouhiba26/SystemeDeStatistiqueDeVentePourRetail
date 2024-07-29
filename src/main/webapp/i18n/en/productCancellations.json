@@ -1,0 +1,26 @@
+{
+  "ssvrApp": {
+    "productCancellations": {
+      "home": {
+        "title": "Product Cancellations",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Product Cancellations",
+        "createOrEditLabel": "Create or edit a Product Cancellations",
+        "notFound": "No Product Cancellations found"
+      },
+      "created": "A new Product Cancellations is created with identifier {{ param }}",
+      "updated": "A Product Cancellations is updated with identifier {{ param }}",
+      "deleted": "A Product Cancellations is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Product Cancellations {{ id }}?"
+      },
+      "detail": {
+        "title": "Product Cancellations"
+      },
+      "id": "Id",
+      "reason": "Reason",
+      "orderItem": "Order Item",
+      "order": "Order"
+    }
+  }
+}

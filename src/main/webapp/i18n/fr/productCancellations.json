@@ -1,0 +1,26 @@
+{
+  "ssvrApp": {
+    "productCancellations": {
+      "home": {
+        "title": "ProductCancellations",
+        "refreshListLabel": "Actualiser la liste",
+        "createLabel": "Créer un nouveau Product Cancellations",
+        "createOrEditLabel": "Créer ou éditer un Product Cancellations",
+        "notFound": "Aucun Product Cancellations trouvé"
+      },
+      "created": "Un nouveau Product Cancellations a été créé avec l'identifiant {{ param }}",
+      "updated": "Le Product Cancellations avec l'identifiant {{ param }} a été mis à jour",
+      "deleted": "Le Product Cancellations avec l'identifiant {{ param }} a été supprimé",
+      "delete": {
+        "question": "Êtes-vous certain de vouloir supprimer le Product Cancellations {{ id }} ?"
+      },
+      "detail": {
+        "title": "Product Cancellations"
+      },
+      "id": "Id",
+      "reason": "Reason",
+      "orderItem": "Order Item",
+      "order": "Order"
+    }
+  }
+}

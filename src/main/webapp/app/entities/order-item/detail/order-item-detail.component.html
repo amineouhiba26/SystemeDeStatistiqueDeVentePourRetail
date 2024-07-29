@@ -1,0 +1,56 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <div *ngIf="orderItem">
+      <h2 data-cy="orderItemDetailsHeading"><span jhiTranslate="ssvrApp.orderItem.detail.title">Order Item</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="ssvrApp.orderItem.id">Id</span></dt>
+        <dd>
+          <span>{{ orderItem.id }}</span>
+        </dd>
+        <dt><span jhiTranslate="ssvrApp.orderItem.quantityOrdered">Quantity Ordered</span></dt>
+        <dd>
+          <span>{{ orderItem.quantityOrdered }}</span>
+        </dd>
+        <dt><span jhiTranslate="ssvrApp.orderItem.quantityCancelled">Quantity Cancelled</span></dt>
+        <dd>
+          <span>{{ orderItem.quantityCancelled }}</span>
+        </dd>
+        <dt><span jhiTranslate="ssvrApp.orderItem.quantityInvoiced">Quantity Invoiced</span></dt>
+        <dd>
+          <span>{{ orderItem.quantityInvoiced }}</span>
+        </dd>
+        <dt><span jhiTranslate="ssvrApp.orderItem.price">Price</span></dt>
+        <dd>
+          <span>{{ orderItem.price }}</span>
+        </dd>
+        <dt><span jhiTranslate="ssvrApp.orderItem.product">Product</span></dt>
+        <dd>
+          <div *ngIf="orderItem.product">
+            <a [routerLink]="['/product', orderItem.product.id, 'view']">{{ orderItem.product.id }}</a>
+          </div>
+        </dd>
+        <dt><span jhiTranslate="ssvrApp.orderItem.order">Order</span></dt>
+        <dd>
+          <div *ngIf="orderItem.order">
+            <a [routerLink]="['/order', orderItem.order.id, 'view']">{{ orderItem.order.id }}</a>
+          </div>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/order-item', orderItem.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

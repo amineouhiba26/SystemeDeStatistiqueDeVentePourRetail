@@ -1,0 +1,123 @@
+entity UserConf {
+    id Long
+    username String required
+    password String required
+    firstName String
+    lastName String
+    email String
+    phoneNumber Long
+}
+
+entity Role {
+    id Long
+    name String required
+    description String	
+}
+
+entity Permission {
+    id Long
+    name String required
+    description String	
+}
+
+entity Order {
+    id Long
+     incrementId String required
+    orderDate ZonedDateTime required
+    status String required
+    grandTotal Double required
+    totalInvoiced Double
+    totalDue Double
+}
+
+entity OrderItem {
+    id Long
+    quantityOrdered Integer required
+    quantityCancelled Integer
+    quantityInvoiced Integer
+    price Double required
+}
+
+entity PriceHistory {
+    id Long
+    oldPrice Double required
+    newPrice Double required
+}
+
+entity Product {
+    id Long
+    sku String required
+    name String required
+    price Double required
+    discountAmount Double
+    category String required
+    capacity String
+    brand String
+} 
+entity Payment {
+	id Long 
+    amount Double 
+    paymentMehodName String 
+    paymentMehodeCode String 
+    paymentDate ZonedDateTime 
+    status String 
+}
+
+entity ProductCancellations {
+    id Long
+    reason String
+}
+
+relationship ManyToOne {
+    OrderItem{product} to Product
+    OrderItem{order} to Order
+    UserConf{role} to Role
+}
+
+relationship OneToMany {
+    Product to PriceHistory{product}
+    OrderItem to ProductCancellations{orderItem}
+    Order to ProductCancellations{order}
+    Order to Payment{Payment}
+}
+
+relationship ManyToMany {
+    Role to Permission
+}
+
+application {
+  config {
+    applicationType monolith
+    authenticationType oauth2
+    baseName ssvr
+    blueprints []
+    buildTool maven
+    cacheProvider no
+    clientFramework no
+    clientPackageManager npm
+    creationTimestamp 1666084845236
+    databaseType sql
+    devDatabaseType postgresql
+    dtoSuffix DTO
+    enableHibernateCache true
+    enableSwaggerCodegen false
+    enableTranslation true
+    jhiPrefix jhi
+    jhipsterVersion "7.9.4"
+    languages [fr, en]
+    microfrontend false
+    nativeLanguage en
+    packageName com.satoripop.ssvr
+    prodDatabaseType postgresql
+    reactive false
+    serverPort 8080
+    serviceDiscoveryType no
+    skipClient false
+    skipUserManagement true
+    testFrameworks []
+    websocket false
+    clientFramework angularX
+  }
+ 
+  entities ProductCancellations, Payment, Product, PriceHistory, OrderItem, Order, Permission, Role, UserConf
+}

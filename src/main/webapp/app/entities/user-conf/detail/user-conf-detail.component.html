@@ -1,0 +1,58 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <div *ngIf="userConf">
+      <h2 data-cy="userConfDetailsHeading"><span jhiTranslate="ssvrApp.userConf.detail.title">User Conf</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="ssvrApp.userConf.id">Id</span></dt>
+        <dd>
+          <span>{{ userConf.id }}</span>
+        </dd>
+        <dt><span jhiTranslate="ssvrApp.userConf.username">Username</span></dt>
+        <dd>
+          <span>{{ userConf.username }}</span>
+        </dd>
+        <dt><span jhiTranslate="ssvrApp.userConf.password">Password</span></dt>
+        <dd>
+          <span>{{ userConf.password }}</span>
+        </dd>
+        <dt><span jhiTranslate="ssvrApp.userConf.firstName">First Name</span></dt>
+        <dd>
+          <span>{{ userConf.firstName }}</span>
+        </dd>
+        <dt><span jhiTranslate="ssvrApp.userConf.lastName">Last Name</span></dt>
+        <dd>
+          <span>{{ userConf.lastName }}</span>
+        </dd>
+        <dt><span jhiTranslate="ssvrApp.userConf.email">Email</span></dt>
+        <dd>
+          <span>{{ userConf.email }}</span>
+        </dd>
+        <dt><span jhiTranslate="ssvrApp.userConf.phoneNumber">Phone Number</span></dt>
+        <dd>
+          <span>{{ userConf.phoneNumber }}</span>
+        </dd>
+        <dt><span jhiTranslate="ssvrApp.userConf.role">Role</span></dt>
+        <dd>
+          <div *ngIf="userConf.role">
+            <a [routerLink]="['/role', userConf.role.id, 'view']">{{ userConf.role.id }}</a>
+          </div>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/user-conf', userConf.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

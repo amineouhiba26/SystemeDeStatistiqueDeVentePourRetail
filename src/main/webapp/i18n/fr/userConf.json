@@ -1,0 +1,30 @@
+{
+  "ssvrApp": {
+    "userConf": {
+      "home": {
+        "title": "UserConfs",
+        "refreshListLabel": "Actualiser la liste",
+        "createLabel": "Créer un nouveau User Conf",
+        "createOrEditLabel": "Créer ou éditer un User Conf",
+        "notFound": "Aucun User Conf trouvé"
+      },
+      "created": "Un nouveau User Conf a été créé avec l'identifiant {{ param }}",
+      "updated": "Le User Conf avec l'identifiant {{ param }} a été mis à jour",
+      "deleted": "Le User Conf avec l'identifiant {{ param }} a été supprimé",
+      "delete": {
+        "question": "Êtes-vous certain de vouloir supprimer le User Conf {{ id }} ?"
+      },
+      "detail": {
+        "title": "User Conf"
+      },
+      "id": "Id",
+      "username": "Username",
+      "password": "Password",
+      "firstName": "First Name",
+      "lastName": "Last Name",
+      "email": "Email",
+      "phoneNumber": "Phone Number",
+      "role": "Role"
+    }
+  }
+}
