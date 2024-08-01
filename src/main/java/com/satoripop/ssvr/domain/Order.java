@@ -235,6 +235,6 @@ public class Order extends AbstractAuditingEntity<UUID> implements Serializable 
             ", grandTotal=" + getGrandTotal() +
             ", totalInvoiced=" + getTotalInvoiced() +
             ", totalDue=" + getTotalDue() +
-            "}";
+            "createdBy='" + getCreatedBy()+"}";
     }
 }

@@ -1,19 +1,14 @@
 {
   "home": {
-    "title": "Bienvenue, Java Hipster !",
-    "subtitle": "Ceci est votre page d'accueil",
-    "logged": {
-      "message": "Vous êtes connecté en tant que \"{{username}}\"."
-    },
-    "question": "Si vous avez des questions à propos de JHipster :",
-    "link": {
-      "homepage": "Page d'accueil de JHipster",
-      "stackoverflow": "JHipster sur Stack Overflow",
-      "bugtracker": "JHipster bug tracker",
-      "chat": "JHipster public chat room",
-      "follow": "Suivez @jhipster sur Twitter"
-    },
-    "like": "Si vous aimez JHipster, donnez nous une étoile sur",
-    "github": "GitHub "
+    "title": "Bienvenue dans le Système de Statistiques de Vente pour Retail",
+    "description": "Notre application web est conçue pour fournir des informations complètes sur la performance des ventes au détail. Avec une interface intuitive et puissante, elle permet aux utilisateurs de suivre et d'analyser les statistiques de ventes, de surveiller les variations de prix et de gérer efficacement les données de vente.",
+    "features": [
+      "Vue d'ensemble des ventes : Obtenez un aperçu de vos ventes totales, du nombre de commandes et de la croissance du chiffre d'affaires.",
+      "Statistiques de ventes détaillées : Approfondissez les performances des produits, les ventes par catégorie et les variations de prix.",
+      "Gestion des commandes : Affichez, suivez et gérez les commandes, y compris les informations détaillées sur les commandes.",
+      "Gestion des produits : Gérez les détails des produits, les niveaux de stock et les informations sur les prix.",
+      "Gestion des utilisateurs : Les administrateurs peuvent gérer les rôles des utilisateurs, les autorisations et les statuts des comptes.",
+      "Rapports personnalisés : Générez et téléchargez des rapports basés sur divers critères."
+    ]
   }
 }

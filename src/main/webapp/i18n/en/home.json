@@ -1,19 +1,14 @@
 {
   "home": {
-    "title": "Welcome, Java Hipster!",
-    "subtitle": "This is your homepage",
-    "logged": {
-      "message": "You are logged in as user \"{{username}}\"."
-    },
-    "question": "If you have any question on JHipster:",
-    "link": {
-      "homepage": "JHipster homepage",
-      "stackoverflow": "JHipster on Stack Overflow",
-      "bugtracker": "JHipster bug tracker",
-      "chat": "JHipster public chat room",
-      "follow": "follow @jhipster on Twitter"
-    },
-    "like": "If you like JHipster, don't forget to give us a star on",
-    "github": "GitHub"
+    "title": "Welcome to the Sales Statistics System for Retail",
+    "description": "Our web application is designed to provide comprehensive insights into retail sales performance. With an intuitive and powerful interface, it enables users to track and analyze sales statistics, monitor price variations, and manage sales data efficiently.",
+    "features": [
+      "Sales Overview: Get a snapshot of your total sales, number of orders, and revenue growth.",
+      "Detailed Sales Statistics: Dive deep into product performance, sales by category, and price variations.",
+      "Order Management: View, track, and manage orders, including detailed order information.",
+      "Product Management: Manage product details, stock levels, and pricing information.",
+      "User Management: Admins can manage user roles, permissions, and account statuses.",
+      "Custom Reports: Generate and download reports based on various criteria."
+    ]
   }
 }

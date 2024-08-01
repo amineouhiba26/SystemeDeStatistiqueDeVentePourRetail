@@ -34,7 +34,7 @@ spring:
     type: com.zaxxer.hikari.HikariDataSource
     url: jdbc:postgresql://localhost:5432/ssvr
     username: ssvr
-    password:
+    password: ssvr
     hikari:
       poolName: Hikari
       auto-commit: false
