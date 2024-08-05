@@ -1,36 +1,122 @@
-@import '~bootstrap/scss/functions';
-@import '~bootstrap/scss/variables';
+/* Navbar Styles */
+.navbar {
+  background-color: #007367; /* Change to your desired color */
+  border-bottom: 1px solid #333; /* Slightly lighter border for separation */
+  padding: 1rem 0; /* Add padding for better spacing */
+  transition: background-color 0.3s ease; /* Smooth background color transition */
+}
 
-/* ==========================================================================
-Navbar
-========================================================================== */
+.navbar-brand {
+  color: #ffffff; /* Adjust text color for better contrast */
+  font-size: 1.25rem;
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+}
 
-.navbar-version {
-  font-size: 0.65em;
-  color: $navbar-dark-color;
+.navbar-brand .logo {
+  margin-right: 0.5rem;
+}
+
+.navbar-brand .navbar-version {
+  font-weight: 600;
+}
+
+.navbar-toggler {
+  border: none;
+  background: none;
+  color: #ffffff;
+  font-size: 1.5rem;
+  padding: 0.5rem;
+}
+
+.navbar-toggler:hover {
+  color: #cccccc;
+}
+
+.navbar-nav {
+  margin-left: auto; /* Move navigation links to the right */
+  display: flex; /* Ensure navigation links are in a row */
+  align-items: center; /* Center vertically */
+}
+
+.nav-item {
+  position: relative;
+  margin-left: 1.5rem; /* Add spacing between navigation items */
+}
+
+.nav-link {
+  color: #ffffff;
+  padding: 0.75rem 1.5rem; /* Add padding for better spacing */
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  font-size: 1rem;
+  transition: background-color 0.3s ease; /* Smooth background color transition */
+}
+
+.nav-link:hover {
+  background-color: #1d1d1d; /* Slightly lighter background on hover */
+  color: #00bfae; /* Teal color on hover */
+  border-radius: 4px; /* Add rounded corners for a softer look */
+}
+
+.nav-link .fa-icon {
+  margin-right: 0.5rem;
+}
+
+.navbar-collapse {
+  display: flex;
+  align-items: center;
+}
+
+.dropdown-menu {
+  background-color: #1c1c1c; /* Darker background for dropdown */
+  border: none;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  border-radius: 4px; /* Add rounded corners for a softer look */
+}
+
+.dropdown-item {
+  color: #ffffff;
+  padding: 0.75rem 1rem;
+  text-decoration: none;
+  font-size: 0.9rem;
+  transition: background-color 0.3s ease; /* Smooth background color transition */
+}
+
+.dropdown-item:hover {
+  background-color: #333333; /* Lighter background on hover */
+  color: #00bfae; /* Teal color on hover */
+  border-radius: 4px; /* Add rounded corners for a softer look */
 }
 
 .profile-image {
-  height: 1.75em;
-  width: 1.75em;
+  width: 2rem;
+  height: 2rem;
+  object-fit: cover;
+  border: 2px solid #ffffff;
+  border-radius: 50%; /* Create a circular profile image */
 }
 
-.navbar {
-  padding: 0.2rem 1rem;
-
-  a.nav-link {
-    font-weight: 400;
+/* Responsive Adjustments */
+@media (max-width: 767px) {
+  .navbar-toggler {
+    font-size: 1.25rem;
   }
-}
 
-/* ==========================================================================
-Logo styles
-========================================================================== */
-.logo-img {
-  height: 45px;
-  width: 45px;
-  display: inline-block;
-  vertical-align: middle;
-  background: url('../../../content/images/logo-jhipster.png') no-repeat center center;
-  background-size: contain;
+  .navbar-nav {
+    margin-top: 1rem;
+    flex-direction: column; /* Stack navigation links vertically */
+    align-items: flex-start; /* Align navigation links to the left */
+  }
+
+  .dropdown-menu {
+    position: static;
+    float: none;
+  }
+
+  .nav-item {
+    margin-bottom: 1rem; /* Add spacing between navigation items on smaller screens */
+  }
 }

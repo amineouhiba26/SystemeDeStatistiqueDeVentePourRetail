@@ -24,6 +24,8 @@ export class NavbarComponent implements OnInit {
   version = '';
   account: Account | null = null;
   entitiesNavbarItems: any[] = [];
+  isAdmin = false;
+  isUser: boolean = false;
 
   constructor(
     private loginService: LoginService,
@@ -45,8 +47,17 @@ export class NavbarComponent implements OnInit {
       this.openAPIEnabled = profileInfo.openAPIEnabled;
     });
 
-    this.accountService.getAuthenticationState().subscribe(account => {
-      this.account = account;
+    this.accountService.identity().subscribe(account => {
+      if (account) {
+        this.account = account;
+        this.isAdmin = this.accountService.hasAnyAuthority('ROLE_ADMIN');
+      }
+    });
+    this.accountService.identity().subscribe(account => {
+      if (account) {
+        this.account = account;
+        this.isUser = this.accountService.hasAnyAuthority('ROLE_USER');
+      }
     });
   }
 
