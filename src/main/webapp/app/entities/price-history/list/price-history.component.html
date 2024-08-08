@@ -32,12 +32,6 @@
     <table class="styled-table" aria-describedby="pageTitles">
       <thead>
         <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" (sortChange)="navigateToWithComponentValues()">
-          <th scope="col" jhiSortBy="id">
-            <div class="d-flex">
-              <span jhiTranslate="ssvrApp.priceHistory.id">Id</span>
-              <fa-icon class="p-1" icon="sort"></fa-icon>
-            </div>
-          </th>
           <th scope="col" jhiSortBy="oldPrice">
             <div class="d-flex">
               <span jhiTranslate="ssvrApp.priceHistory.oldPrice">Old Price</span>
@@ -50,7 +44,7 @@
               <fa-icon class="p-1" icon="sort"></fa-icon>
             </div>
           </th>
-          <th scope="col" jhiSortBy="product.id">
+          <th scope="col" jhiSortBy="product.name">
             <div class="d-flex">
               <span jhiTranslate="ssvrApp.priceHistory.product">Product</span>
               <fa-icon class="p-1" icon="sort"></fa-icon>
@@ -61,14 +55,13 @@
       </thead>
       <tbody>
         <tr *ngFor="let priceHistory of priceHistories; trackBy: trackId" data-cy="entityTable">
-          <td>
-            <a [routerLink]="['/price-history', priceHistory.id, 'view']">{{ priceHistory.id }}</a>
-          </td>
           <td>{{ priceHistory.oldPrice }}</td>
           <td>{{ priceHistory.newPrice }}</td>
           <td>
             <div *ngIf="priceHistory.product">
-              <a [routerLink]="['/product', priceHistory.product.id, 'view']">{{ priceHistory.product.id }}</a>
+              <a [routerLink]="['/product', priceHistory.product.id, 'view']">
+                {{ priceHistory.product.name }}
+              </a>
             </div>
           </td>
           <td class="text-end">

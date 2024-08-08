@@ -1,7 +1,9 @@
 package com.satoripop.ssvr.web.rest;
 
 import com.satoripop.ssvr.repository.ProductRepository;
+import com.satoripop.ssvr.service.PriceHistoryService;
 import com.satoripop.ssvr.service.ProductService;
+import com.satoripop.ssvr.service.dto.PriceHistoryDTO;
 import com.satoripop.ssvr.service.dto.ProductDTO;
 import com.satoripop.ssvr.web.rest.errors.BadRequestAlertException;
 import java.net.URI;
@@ -71,7 +73,7 @@ public class ProductResource {
     /**
      * {@code PUT  /products/:id} : Updates an existing product.
      *
-     * @param id the id of the productDTO to save.
+     * @param id         the id of the productDTO to save.
      * @param productDTO the productDTO to update.
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the updated productDTO,
      * or with status {@code 400 (Bad Request)} if the productDTO is not valid,
@@ -105,7 +107,7 @@ public class ProductResource {
     /**
      * {@code PATCH  /products/:id} : Partial updates given fields of an existing product, field will ignore if it is null
      *
-     * @param id the id of the productDTO to save.
+     * @param id         the id of the productDTO to save.
      * @param productDTO the productDTO to update.
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the updated productDTO,
      * or with status {@code 400 (Bad Request)} if the productDTO is not valid,

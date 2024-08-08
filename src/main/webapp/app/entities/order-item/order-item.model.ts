@@ -7,8 +7,8 @@ export interface IOrderItem {
   quantityCancelled?: number | null;
   quantityInvoiced?: number | null;
   price?: number | null;
-  product?: Pick<IProduct, 'id'> | null;
-  order?: Pick<IOrder, 'id'> | null;
+  product?: IProduct | null;
+  order?: IOrder | null;
 }
 
 export type NewOrderItem = Omit<IOrderItem, 'id'> & { id: null };

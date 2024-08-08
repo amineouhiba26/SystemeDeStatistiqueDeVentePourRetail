@@ -10,6 +10,7 @@ import { ITEMS_PER_PAGE, PAGE_HEADER, TOTAL_COUNT_RESPONSE_HEADER } from 'app/co
 import { ASC, DESC, SORT, ITEM_DELETED_EVENT, DEFAULT_SORT_DATA } from 'app/config/navigation.constants';
 import { EntityArrayResponseType, PriceHistoryService } from '../service/price-history.service';
 import { PriceHistoryDeleteDialogComponent } from '../delete/price-history-delete-dialog.component';
+import { IProduct } from '../../product/product.model';
 
 @Component({
   selector: 'jhi-price-history',
@@ -131,5 +132,10 @@ export class PriceHistoryComponent implements OnInit {
     } else {
       return [predicate + ',' + ascendingQueryParam];
     }
+  }
+
+  // Use this method to get product name safely
+  protected getProductName(product: IProduct | null): string {
+    return product?.name ?? 'Unknown'; // Handle null or undefined
   }
 }

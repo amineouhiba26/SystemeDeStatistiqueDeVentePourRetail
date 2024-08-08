@@ -5,9 +5,16 @@ import { ProductDetailComponent } from './detail/product-detail.component';
 import { ProductUpdateComponent } from './update/product-update.component';
 import { ProductDeleteDialogComponent } from './delete/product-delete-dialog.component';
 import { ProductRoutingModule } from './route/product-routing.module';
+import { PriceHistoryChartComponent } from '../../price-history/price-history-chart/price-history-chart.component';
 
 @NgModule({
   imports: [SharedModule, ProductRoutingModule],
-  declarations: [ProductComponent, ProductDetailComponent, ProductUpdateComponent, ProductDeleteDialogComponent],
+  declarations: [
+    ProductComponent,
+    ProductDetailComponent,
+    ProductUpdateComponent,
+    ProductDeleteDialogComponent,
+    PriceHistoryChartComponent,
+  ],
 })
 export class ProductModule {}

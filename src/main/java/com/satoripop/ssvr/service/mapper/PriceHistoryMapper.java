@@ -11,11 +11,12 @@ import org.mapstruct.*;
  */
 @Mapper(componentModel = "spring")
 public interface PriceHistoryMapper extends EntityMapper<PriceHistoryDTO, PriceHistory> {
-    @Mapping(target = "product", source = "product", qualifiedByName = "productId")
+    @Mapping(target = "product", source = "product", qualifiedByName = "toDtoProduct")
     PriceHistoryDTO toDto(PriceHistory s);
 
-    @Named("productId")
+    @Named("toDtoProduct")
     @BeanMapping(ignoreByDefault = true)
     @Mapping(target = "id", source = "id")
-    ProductDTO toDtoProductId(Product product);
+    @Mapping(target = "name", source = "name")
+    ProductDTO toDtoProduct(Product product);
 }

@@ -32,12 +32,7 @@
     <table class="styled-table" aria-describedby="pageTitles">
       <thead>
         <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" (sortChange)="navigateToWithComponentValues()">
-          <th scope="col" jhiSortBy="id">
-            <div class="d-flex">
-              <span jhiTranslate="ssvrApp.payment.id">Id</span>
-              <fa-icon class="p-1" icon="sort"></fa-icon>
-            </div>
-          </th>
+          <th scope="col" jhiSortBy="id"></th>
           <th scope="col" jhiSortBy="amount">
             <div class="d-flex">
               <span jhiTranslate="ssvrApp.payment.amount">Amount</span>
@@ -79,9 +74,7 @@
       </thead>
       <tbody>
         <tr *ngFor="let payment of payments; trackBy: trackId" data-cy="entityTable">
-          <td>
-            <a [routerLink]="['/payment', payment.id, 'view']">{{ payment.id }}</a>
-          </td>
+          <td></td>
           <td>{{ payment.amount }}</td>
           <td>{{ payment.paymentMehodName }}</td>
           <td>{{ payment.paymentMehodeCode }}</td>

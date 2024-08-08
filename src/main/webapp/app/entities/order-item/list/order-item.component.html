@@ -32,12 +32,7 @@
     <table class="styled-table" aria-describedby="pageTitles">
       <thead>
         <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" (sortChange)="navigateToWithComponentValues()">
-          <th scope="col" jhiSortBy="id">
-            <div class="d-flex">
-              <span jhiTranslate="ssvrApp.orderItem.id">Id</span>
-              <fa-icon class="p-1" icon="sort"></fa-icon>
-            </div>
-          </th>
+          <th scope="col" jhiSortBy="id"></th>
           <th scope="col" jhiSortBy="quantityOrdered">
             <div class="d-flex">
               <span jhiTranslate="ssvrApp.orderItem.quantityOrdered">Quantity Ordered</span>
@@ -79,21 +74,19 @@
       </thead>
       <tbody>
         <tr *ngFor="let orderItem of orderItems; trackBy: trackId" data-cy="entityTable">
-          <td>
-            <a [routerLink]="['/order-item', orderItem.id, 'view']">{{ orderItem.id }}</a>
-          </td>
+          <td></td>
           <td>{{ orderItem.quantityOrdered }}</td>
           <td>{{ orderItem.quantityCancelled }}</td>
           <td>{{ orderItem.quantityInvoiced }}</td>
           <td>{{ orderItem.price }}</td>
           <td>
             <div *ngIf="orderItem.product">
-              <a [routerLink]="['/product', orderItem.product.id, 'view']">{{ orderItem.product.id }}</a>
+              <a [routerLink]="['/product', orderItem.product.id, 'view']">{{ orderItem.product.name }}</a>
             </div>
           </td>
           <td>
             <div *ngIf="orderItem.order">
-              <a [routerLink]="['/order', orderItem.order.id, 'view']">{{ orderItem.order.id }}</a>
+              <a [routerLink]="['/order', orderItem.order.id, 'view']">{{ orderItem.order.incrementId }}</a>
             </div>
           </td>
           <td class="text-end">

@@ -1,10 +1,12 @@
 package com.satoripop.ssvr.service;
 
 import com.satoripop.ssvr.service.dto.PriceHistoryDTO;
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * Service Interface for managing {@link com.satoripop.ssvr.domain.PriceHistory}.
@@ -56,4 +58,9 @@ public interface PriceHistoryService {
      * @param id the id of the entity.
      */
     void delete(UUID id);
+
+    List<PriceHistoryDTO> findByProductId(Long productId);
+
+    @Transactional(readOnly = true)
+    List<PriceHistoryDTO> findByProductId(UUID productId);
 }

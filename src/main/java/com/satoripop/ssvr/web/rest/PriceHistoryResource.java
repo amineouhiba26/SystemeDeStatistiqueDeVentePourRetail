@@ -1,8 +1,10 @@
 package com.satoripop.ssvr.web.rest;
 
 import com.satoripop.ssvr.repository.PriceHistoryRepository;
+import com.satoripop.ssvr.repository.ProductRepository;
 import com.satoripop.ssvr.service.PriceHistoryService;
 import com.satoripop.ssvr.service.dto.PriceHistoryDTO;
+import com.satoripop.ssvr.service.dto.ProductDTO;
 import com.satoripop.ssvr.web.rest.errors.BadRequestAlertException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -18,7 +20,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -36,6 +37,7 @@ public class PriceHistoryResource {
     private final Logger log = LoggerFactory.getLogger(PriceHistoryResource.class);
 
     private static final String ENTITY_NAME = "priceHistory";
+    private final ProductRepository productRepository;
 
     @Value("${jhipster.clientApp.name}")
     private String applicationName;
@@ -44,9 +46,14 @@ public class PriceHistoryResource {
 
     private final PriceHistoryRepository priceHistoryRepository;
 
-    public PriceHistoryResource(PriceHistoryService priceHistoryService, PriceHistoryRepository priceHistoryRepository) {
+    public PriceHistoryResource(
+        PriceHistoryService priceHistoryService,
+        PriceHistoryRepository priceHistoryRepository,
+        ProductRepository productRepository
+    ) {
         this.priceHistoryService = priceHistoryService;
         this.priceHistoryRepository = priceHistoryRepository;
+        this.productRepository = productRepository;
     }
 
     /**
@@ -181,5 +188,12 @@ public class PriceHistoryResource {
             .noContent()
             .headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString()))
             .build();
+    }
+
+    @GetMapping("/price-histories/product/{productId}")
+    public ResponseEntity<List<PriceHistoryDTO>> getPriceHistoriesByProductId(@PathVariable UUID productId) {
+        log.debug("REST request to get PriceHistories by ProductId : {}", productId);
+        List<PriceHistoryDTO> priceHistoryDTOs = priceHistoryService.findByProductId(productId);
+        return ResponseUtil.wrapOrNotFound(Optional.of(priceHistoryDTOs));
     }
 }

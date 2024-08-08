@@ -5,8 +5,8 @@ import com.satoripop.ssvr.repository.PriceHistoryRepository;
 import com.satoripop.ssvr.service.PriceHistoryService;
 import com.satoripop.ssvr.service.dto.PriceHistoryDTO;
 import com.satoripop.ssvr.service.mapper.PriceHistoryMapper;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
+import java.util.stream.Collectors;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -56,7 +56,6 @@ public class PriceHistoryServiceImpl implements PriceHistoryService {
             .findById(priceHistoryDTO.getId())
             .map(existingPriceHistory -> {
                 priceHistoryMapper.partialUpdate(existingPriceHistory, priceHistoryDTO);
-
                 return existingPriceHistory;
             })
             .map(priceHistoryRepository::save)
@@ -81,5 +80,15 @@ public class PriceHistoryServiceImpl implements PriceHistoryService {
     public void delete(UUID id) {
         log.debug("Request to delete PriceHistory : {}", id);
         priceHistoryRepository.deleteById(id);
+    }
+
+    @Override
+    public List<PriceHistoryDTO> findByProductId(Long productId) {
+        return List.of();
+    }
+
+    @Override
+    public List<PriceHistoryDTO> findByProductId(UUID productId) {
+        return List.of();
     }
 }

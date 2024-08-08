@@ -1,5 +1,5 @@
 import { NgModule, LOCALE_ID } from '@angular/core';
-import { registerLocaleData } from '@angular/common';
+import { CommonModule, registerLocaleData } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import locale from '@angular/common/locales/en';
 import { BrowserModule, Title } from '@angular/platform-browser';
@@ -25,9 +25,13 @@ import { FooterComponent } from './layouts/footer/footer.component';
 import { PageRibbonComponent } from './layouts/profiles/page-ribbon.component';
 import { ActiveMenuDirective } from './layouts/navbar/active-menu.directive';
 import { ErrorComponent } from './layouts/error/error.component';
+import { PriceHistoryChartComponent } from './entities/my-chart/my-chart.component';
+import { ProductPriceVariationChartComponent } from './product-price-variation-chart/product-price-variation-chart.component';
 
 @NgModule({
   imports: [
+    CommonModule,
+
     BrowserModule,
     SharedModule,
     HomeModule,
@@ -36,17 +40,34 @@ import { ErrorComponent } from './layouts/error/error.component';
     // Set this to true to enable service worker (PWA)
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: false }),
     HttpClientModule,
-    NgxWebstorageModule.forRoot({ prefix: 'jhi', separator: '-', caseSensitive: true }),
+    NgxWebstorageModule.forRoot({
+      prefix: 'jhi',
+      separator: '-',
+      caseSensitive: true,
+    }),
     TranslationModule,
   ],
   providers: [
     Title,
     { provide: LOCALE_ID, useValue: 'en' },
-    { provide: NgbDateAdapter, useClass: NgbDateDayjsAdapter },
+    {
+      provide: NgbDateAdapter,
+      useClass: NgbDateDayjsAdapter,
+    },
     httpInterceptorProviders,
   ],
-  declarations: [MainComponent, NavbarComponent, ErrorComponent, PageRibbonComponent, ActiveMenuDirective, FooterComponent],
+  declarations: [
+    MainComponent,
+    NavbarComponent,
+    ErrorComponent,
+    PageRibbonComponent,
+    ActiveMenuDirective,
+    FooterComponent,
+    PriceHistoryChartComponent,
+    ProductPriceVariationChartComponent,
+  ],
   bootstrap: [MainComponent],
+  exports: [ProductPriceVariationChartComponent],
 })
 export class AppModule {
   constructor(applicationConfigService: ApplicationConfigService, iconLibrary: FaIconLibrary, dpConfig: NgbDatepickerConfig) {

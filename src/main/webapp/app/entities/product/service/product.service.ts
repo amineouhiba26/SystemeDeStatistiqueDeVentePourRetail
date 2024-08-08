@@ -46,6 +46,10 @@ export class ProductService {
   getProductIdentifier(product: Pick<IProduct, 'id'>): string {
     return product.id;
   }
+  // Use this method to get product name safely
+  getProductName(product: IProduct | null): string {
+    return product?.name ?? 'Unknown'; // Handle null or undefined
+  }
 
   compareProduct(o1: Pick<IProduct, 'id'> | null, o2: Pick<IProduct, 'id'> | null): boolean {
     return o1 && o2 ? this.getProductIdentifier(o1) === this.getProductIdentifier(o2) : o1 === o2;

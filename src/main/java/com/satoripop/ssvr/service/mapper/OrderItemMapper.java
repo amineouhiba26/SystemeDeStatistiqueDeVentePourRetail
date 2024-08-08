@@ -21,5 +21,6 @@ public interface OrderItemMapper extends EntityMapper<OrderItemDTO, OrderItem> {
     @Named("orderId")
     @BeanMapping(ignoreByDefault = true)
     @Mapping(target = "id", source = "id")
+    @Mapping(target = "incrementId", source = "incrementId")
     OrderDTO toDtoOrderId(Order order);
 }

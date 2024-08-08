@@ -32,12 +32,6 @@
     <table class="styled-table" aria-describedby="pageTitles">
       <thead>
         <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" (sortChange)="navigateToWithComponentValues()">
-          <th scope="col" jhiSortBy="id">
-            <div class="d-flex">
-              <span jhiTranslate="ssvrApp.productCancellations.id">Id</span>
-              <fa-icon class="p-1" icon="sort"></fa-icon>
-            </div>
-          </th>
           <th scope="col" jhiSortBy="reason">
             <div class="d-flex">
               <span jhiTranslate="ssvrApp.productCancellations.reason">Reason</span>
@@ -61,9 +55,6 @@
       </thead>
       <tbody>
         <tr *ngFor="let productCancellations of productCancellations; trackBy: trackId" data-cy="entityTable">
-          <td>
-            <a [routerLink]="['/product-cancellations', productCancellations.id, 'view']">{{ productCancellations.id }}</a>
-          </td>
           <td>{{ productCancellations.reason }}</td>
           <td>
             <div *ngIf="productCancellations.orderItem">

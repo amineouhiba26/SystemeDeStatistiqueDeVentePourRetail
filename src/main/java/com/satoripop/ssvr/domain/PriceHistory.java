@@ -29,7 +29,7 @@ public class PriceHistory extends AbstractAuditingEntity<UUID> implements Serial
     @Column(name = "new_price", nullable = false)
     private Double newPrice;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JsonIgnoreProperties(value = { "priceHistories" }, allowSetters = true)
     private Product product;
 

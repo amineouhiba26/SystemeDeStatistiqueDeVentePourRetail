@@ -70,7 +70,7 @@
             [compareWith]="compareProduct"
           >
             <option [ngValue]="null"></option>
-            <option [ngValue]="productOption" *ngFor="let productOption of productsSharedCollection">{{ productOption.id }}</option>
+            <option [ngValue]="productOption" *ngFor="let productOption of productsSharedCollection">{{ productOption.name }}</option>
           </select>
         </div>
       </div>

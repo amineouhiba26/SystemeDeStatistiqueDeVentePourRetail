@@ -96,7 +96,7 @@
             [compareWith]="compareProduct"
           >
             <option [ngValue]="null"></option>
-            <option [ngValue]="productOption" *ngFor="let productOption of productsSharedCollection">{{ productOption.id }}</option>
+            <option [ngValue]="productOption" *ngFor="let productOption of productsSharedCollection">{{ productOption.name }}</option>
           </select>
         </div>
 
@@ -104,7 +104,7 @@
           <label class="form-label" jhiTranslate="ssvrApp.orderItem.order" for="field_order">Order</label>
           <select class="form-control" id="field_order" data-cy="order" name="order" formControlName="order" [compareWith]="compareOrder">
             <option [ngValue]="null"></option>
-            <option [ngValue]="orderOption" *ngFor="let orderOption of ordersSharedCollection">{{ orderOption.id }}</option>
+            <option [ngValue]="orderOption" *ngFor="let orderOption of ordersSharedCollection">{{ orderOption.incrementId }}</option>
           </select>
         </div>
       </div>

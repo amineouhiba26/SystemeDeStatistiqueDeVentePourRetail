@@ -32,12 +32,6 @@
     <table class="styled-table" aria-describedby="pageTitles">
       <thead>
         <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" (sortChange)="navigateToWithComponentValues()">
-          <th scope="col" jhiSortBy="id">
-            <div class="d-flex">
-              <span jhiTranslate="ssvrApp.role.id">Id</span>
-              <fa-icon class="p-1" icon="sort"></fa-icon>
-            </div>
-          </th>
           <th scope="col" jhiSortBy="name">
             <div class="d-flex">
               <span jhiTranslate="ssvrApp.role.name">Name</span>
@@ -55,9 +49,6 @@
       </thead>
       <tbody>
         <tr *ngFor="let role of roles; trackBy: trackId" data-cy="entityTable">
-          <td>
-            <a [routerLink]="['/role', role.id, 'view']">{{ role.id }}</a>
-          </td>
           <td>{{ role.name }}</td>
           <td>{{ role.description }}</td>
           <td class="text-end">
