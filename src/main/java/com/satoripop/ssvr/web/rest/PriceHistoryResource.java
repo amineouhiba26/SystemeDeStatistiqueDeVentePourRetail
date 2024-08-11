@@ -4,7 +4,6 @@ import com.satoripop.ssvr.repository.PriceHistoryRepository;
 import com.satoripop.ssvr.repository.ProductRepository;
 import com.satoripop.ssvr.service.PriceHistoryService;
 import com.satoripop.ssvr.service.dto.PriceHistoryDTO;
-import com.satoripop.ssvr.service.dto.ProductDTO;
 import com.satoripop.ssvr.web.rest.errors.BadRequestAlertException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -192,8 +191,8 @@ public class PriceHistoryResource {
 
     @GetMapping("/price-histories/product/{productId}")
     public ResponseEntity<List<PriceHistoryDTO>> getPriceHistoriesByProductId(@PathVariable UUID productId) {
-        log.debug("REST request to get PriceHistories by ProductId : {}", productId);
-        List<PriceHistoryDTO> priceHistoryDTOs = priceHistoryService.findByProductId(productId);
-        return ResponseUtil.wrapOrNotFound(Optional.of(priceHistoryDTOs));
+        log.debug("REST request to get PriceHistories by productId : {}", productId);
+        List<PriceHistoryDTO> priceHistories = priceHistoryService.findByProductId(productId);
+        return ResponseEntity.ok(priceHistories);
     }
 }

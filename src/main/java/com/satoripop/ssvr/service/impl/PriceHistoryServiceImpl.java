@@ -82,13 +82,9 @@ public class PriceHistoryServiceImpl implements PriceHistoryService {
         priceHistoryRepository.deleteById(id);
     }
 
-    @Override
-    public List<PriceHistoryDTO> findByProductId(Long productId) {
-        return List.of();
-    }
-
-    @Override
     public List<PriceHistoryDTO> findByProductId(UUID productId) {
-        return List.of();
+        log.debug("Request to get all PriceHistories by productId : {}", productId);
+        List<PriceHistory> priceHistories = priceHistoryRepository.findByProductId(productId);
+        return priceHistories.stream().map(priceHistoryMapper::toDto).collect(Collectors.toList());
     }
 }

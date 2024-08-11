@@ -1,3 +1,5 @@
+import { IPriceHistory } from '../price-history/price-history.model';
+
 export interface IProduct {
   id: string;
   sku?: string | null;

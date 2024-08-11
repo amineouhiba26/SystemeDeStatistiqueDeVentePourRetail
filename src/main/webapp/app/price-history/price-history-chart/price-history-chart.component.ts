@@ -17,7 +17,7 @@ export class PriceHistoryChartComponent implements OnInit {
 
   private loadChart(): void {
     const productId = '47bb45c2-8326-4bc8-9d52-627c17dab636'; // Replace with actual product ID
-    this.priceHistoryService.getPriceHistoriesByProductId(productId).subscribe(data => {
+    this.priceHistoryService.getPriceHistoriesByProductId('s').subscribe(data => {
       console.log('Data:', data); // Debugging
       const labels = data.map(d => new Date(d.createdDate).toLocaleDateString());
       const oldPrices = data.map(d => d.oldPrice ?? 0);

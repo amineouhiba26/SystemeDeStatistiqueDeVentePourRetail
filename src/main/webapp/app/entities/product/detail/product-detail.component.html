@@ -1,7 +1,9 @@
-<div class="d-flex justify-content-end">
-  <div class="col-8">
+<div class="product-details-container">
+  <div class="product-info-section">
     <div *ngIf="product">
-      <h2 data-cy="productDetailsHeading"><span jhiTranslate="ssvrApp.product.detail.title">Product</span></h2>
+      <h2 data-cy="productDetailsHeading">
+        <span jhiTranslate="ssvrApp.product.detail.title">Product</span>
+      </h2>
 
       <hr />
 
@@ -9,7 +11,7 @@
 
       <jhi-alert></jhi-alert>
 
-      <dl class="row-md jh-entity-details">
+      <dl>
         <dt><span jhiTranslate="ssvrApp.product.id">Id</span></dt>
         <dd>
           <span>{{ product.id }}</span>
@@ -51,6 +53,16 @@
       <button type="button" [routerLink]="['/product', product.id, 'edit']" class="btn btn-primary">
         <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
       </button>
+    </div>
+  </div>
+  <div *ngIf="product">
+    <div class="product-chart-section">
+      <div class="chart-container">
+        <canvas id="productPriceVariationChart-{{ product.id }}"></canvas>
+        <div class="title-wrapper">
+          <span> Product's price variation </span>
+        </div>
+      </div>
     </div>
   </div>
 </div>

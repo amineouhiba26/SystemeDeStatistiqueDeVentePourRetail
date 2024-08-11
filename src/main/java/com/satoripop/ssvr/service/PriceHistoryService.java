@@ -59,8 +59,12 @@ public interface PriceHistoryService {
      */
     void delete(UUID id);
 
-    List<PriceHistoryDTO> findByProductId(Long productId);
+    /**
+     * Get all the priceHistories by product ID.
+     *
+     * @param productId the ID of the product.
+     * @return the list of entities.
+     */
 
-    @Transactional(readOnly = true)
     List<PriceHistoryDTO> findByProductId(UUID productId);
 }

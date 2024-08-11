@@ -6,6 +6,8 @@ export interface IPriceHistory {
   oldPrice?: number | null;
   newPrice?: number | null;
   product?: IProduct | null;
+
+  map(param: (entry: any) => any): unknown[];
 }
 
 export type NewPriceHistory = Omit<IPriceHistory, 'id'> & { id: null };

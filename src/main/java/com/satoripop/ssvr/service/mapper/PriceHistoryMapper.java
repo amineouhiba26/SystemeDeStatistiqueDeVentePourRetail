@@ -19,4 +19,8 @@ public interface PriceHistoryMapper extends EntityMapper<PriceHistoryDTO, PriceH
     @Mapping(target = "id", source = "id")
     @Mapping(target = "name", source = "name")
     ProductDTO toDtoProduct(Product product);
+
+    PriceHistory toEntity(PriceHistoryDTO priceHistoryDTO);
+
+    Object toDto(PriceHistoryDTO priceHistoryDTO);
 }

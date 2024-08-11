@@ -18,7 +18,10 @@ export class PriceHistoryService {
 
   // Ensure the service method returns Observable<IPriceHistory[]>
   getPriceHistoriesByProductId(productId: string): Observable<IPriceHistory[]> {
-    return this.http.get<IPriceHistory[]>(`${this.resourceUrl}?productId=${productId}`).pipe(catchError(this.handleError));
+    // Construct the URL with the productId as a path parameter
+    const url = `${this.resourceUrl}/product/${productId}`;
+
+    return this.http.get<IPriceHistory[]>(url).pipe(catchError(this.handleError));
   }
 
   // Create a new price history record
