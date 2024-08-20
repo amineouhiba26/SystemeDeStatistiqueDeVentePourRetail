@@ -1,0 +1,86 @@
+.dashboard {
+  padding: 20px;
+  background-color: #dbe1e6; /* Light gray-blue for a professional look */
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.dashboard-content {
+  display: flex;
+  flex-wrap: wrap; /* Allows items to wrap if needed */
+  gap: 20px;
+  max-width: 1200px;
+  margin: 0 auto; /* Center the content */
+}
+
+.chart-item {
+  background-color: #fff;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 15px; /* Padding for spacing */
+  flex: 1 1 30%; /* Flex-grow and flex-shrink to handle resizing */
+  box-sizing: border-box;
+  min-width: 200px; /* Minimum width for each chart */
+}
+
+.chart-item h4 {
+  font-size: 1.2em; /* Font size for chart titles */
+  margin-bottom: 10px;
+  color: #333;
+}
+
+canvas {
+  display: block;
+  width: 100%;
+  height: 250px; /* Reduced height for smaller charts */
+  margin-bottom: 20px;
+}
+
+/* Media Queries for Responsiveness */
+@media (max-width: 1200px) {
+  .dashboard-content {
+    flex-direction: row; /* Keep items in row layout */
+  }
+
+  .chart-item {
+    flex: 1 1 45%; /* Adjust to fit 2 charts per row */
+  }
+}
+
+@media (max-width: 992px) {
+  .chart-item {
+    flex: 1 1 100%; /* Full width for smaller screens */
+    min-width: auto; /* Remove min-width to fit the container */
+  }
+}
+
+@media (max-width: 768px) {
+  .dashboard {
+    padding: 15px;
+  }
+
+  .dashboard-content {
+    gap: 15px; /* Adjusted gap for better spacing */
+  }
+
+  .chart-item h4 {
+    font-size: 1.3em; /* Slightly smaller font size on mobile */
+  }
+
+  canvas {
+    height: 200px; /* Adjust height for smaller screens */
+  }
+}
+
+@media (max-width: 480px) {
+  .chart-item h4 {
+    font-size: 1.1em; /* Even smaller font size on very small screens */
+  }
+
+  canvas {
+    height: 180px; /* Further adjust height for very small screens */
+  }
+}
