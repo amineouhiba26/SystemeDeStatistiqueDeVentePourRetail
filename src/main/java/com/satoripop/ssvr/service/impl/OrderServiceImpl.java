@@ -5,8 +5,11 @@ import com.satoripop.ssvr.repository.OrderRepository;
 import com.satoripop.ssvr.service.OrderService;
 import com.satoripop.ssvr.service.dto.OrderDTO;
 import com.satoripop.ssvr.service.mapper.OrderMapper;
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.stream.Collectors;
+import javax.persistence.EntityNotFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -80,6 +83,27 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public void delete(UUID id) {
         log.debug("Request to delete Order : {}", id);
+        if (!orderRepository.existsById(id)) {
+            throw new EntityNotFoundException("Order not found with id: " + id);
+        }
         orderRepository.deleteById(id);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public Optional<String> getOrderStatus(UUID id) {
+        log.debug("Request to get status of Order : {}", id);
+        return orderRepository.findById(id).map(Order::getStatus);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<String> getAllOrderStatuses() {
+        log.debug("Request to get status of all orders");
+        return orderRepository
+            .findAll()
+            .stream()
+            .map(Order::getStatus) // Extract status from each Order
+            .collect(Collectors.toList()); // Collect into a list
     }
 }

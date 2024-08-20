@@ -23,7 +23,7 @@ export class HomeComponent implements OnInit {
           this.router.navigate(['/user-conf']); // Navigate to user-conf route
         } else {
           console.log(this.account.authorities);
-          this.router.navigate(['/product']);
+          this.router.navigate(['/dashboard']);
         }
       } else {
         this.login();

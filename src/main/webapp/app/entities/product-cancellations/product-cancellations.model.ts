@@ -4,7 +4,7 @@ import { IOrder } from 'app/entities/order/order.model';
 export interface IProductCancellations {
   id: string;
   reason?: string | null;
-  orderItem?: Pick<IOrderItem, 'id'> | null;
+  orderItem?: IOrderItem | null;
   order?: Pick<IOrder, 'id'> | null;
 }
 

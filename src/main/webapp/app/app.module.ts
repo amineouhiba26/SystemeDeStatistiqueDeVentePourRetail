@@ -26,7 +26,7 @@ import { PageRibbonComponent } from './layouts/profiles/page-ribbon.component';
 import { ActiveMenuDirective } from './layouts/navbar/active-menu.directive';
 import { ErrorComponent } from './layouts/error/error.component';
 import { PriceHistoryChartComponent } from './entities/my-chart/my-chart.component';
-import { ProductPriceVariationChartComponent } from './product-price-variation-chart/product-price-variation-chart.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
 
 @NgModule({
   imports: [
@@ -64,16 +64,19 @@ import { ProductPriceVariationChartComponent } from './product-price-variation-c
     ActiveMenuDirective,
     FooterComponent,
     PriceHistoryChartComponent,
-    ProductPriceVariationChartComponent,
+    DashboardComponent,
   ],
   bootstrap: [MainComponent],
-  exports: [ProductPriceVariationChartComponent],
 })
 export class AppModule {
   constructor(applicationConfigService: ApplicationConfigService, iconLibrary: FaIconLibrary, dpConfig: NgbDatepickerConfig) {
     applicationConfigService.setEndpointPrefix(SERVER_API_URL);
     registerLocaleData(locale);
     iconLibrary.addIcons(...fontAwesomeIcons);
-    dpConfig.minDate = { year: dayjs().subtract(100, 'year').year(), month: 1, day: 1 };
+    dpConfig.minDate = {
+      year: dayjs().subtract(100, 'year').year(),
+      month: 1,
+      day: 1,
+    };
   }
 }

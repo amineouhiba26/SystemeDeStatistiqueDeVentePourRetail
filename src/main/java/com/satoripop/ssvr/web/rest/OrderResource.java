@@ -180,4 +180,16 @@ public class OrderResource {
             .headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString()))
             .build();
     }
+
+    @GetMapping("/orders/status/{id}")
+    public ResponseEntity<String> getOrderStatus(@PathVariable UUID id) {
+        log.debug("REST request to get status of Order : {}", id);
+        Optional<String> status = orderService.getOrderStatus(id);
+        return ResponseUtil.wrapOrNotFound(status);
+    }
+
+    @GetMapping("/orders/statuses")
+    public List<String> getAllOrderStatuses() {
+        return orderService.getAllOrderStatuses();
+    }
 }

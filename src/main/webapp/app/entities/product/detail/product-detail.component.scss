@@ -2,9 +2,9 @@
   display: flex;
   flex-direction: row; /* Align items horizontally */
   align-items: flex-start; /* Align items at the top */
-  gap: 20px; /* Space between the product info and the chart */
-  padding: 20px; /* Padding around the container */
-  max-width: 1000px; /* Adjust as needed */
+  gap: 30px; /* Increased space between the product info and the chart */
+  padding: 30px; /* Increased padding around the container */
+  max-width: 1200px; /* Increased maximum width for more space */
   margin: 20px auto; /* Center the container horizontally */
   border: 2px solid #007bff; /* Border color */
   border-radius: 10px; /* Rounded corners */
@@ -13,13 +13,40 @@
 }
 
 .product-info-section {
-  flex: 2; /* Allow this section to take more space */
+  flex: 400px; /* Allow this section to take more space */
+  padding: 20px;
+  background-color: #ffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
 }
 
 .product-chart-section {
-  flex: 1; /* Allow this section to take less space */
+  flex: 10px; /* Allow this section to take less space */
   display: flex;
-  align-items: center; /* Center the chart vertically */
+  gap: 30px; /* Increased space between the charts */
+  align-items: flex-start; /* Align charts at the top */
+}
+
+.chart-container {
+  flex: 1; /* Allow chart containers to take equal space */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%; /* Full width for chart containers */
+  max-width: 550px; /* Increased maximum width of each chart container */
+}
+
+.chart-container canvas {
+  width: 100% !important; /* Ensure canvas takes full width */
+  height: 350px; /* Increased height for the charts */
+}
+
+.chart-title {
+  font-size: 1.6rem; /* Font size for the title */
+  font-weight: 600; /* Semi-bold weight */
+  color: #333; /* Dark color for readability */
+  text-align: center; /* Center align the title */
+  margin: 10px 0; /* Space above and below the title */
 }
 
 .product-details h2 {
@@ -84,35 +111,6 @@
   margin-right: 8px; /* Space between icon and text */
 }
 
-.chart-container {
-  width: 100%; /* Make chart take the full width */
-  margin-top: 120px; /* Space above the chart */
-}
-
-.chart-container canvas {
-  width: 100% !important; /* Ensure canvas takes full width */
-  height: 300px; /* Set a fixed height for the chart */
-}
-
-.product-chart-section {
-  flex: 1;
-  display: flex;
-  flex-direction: column; /* Arrange elements vertically */
-  align-items: center; /* Center align the chart and title */
-
-  .chart-container {
-    width: 100%; /* Make chart take the full width */
-    margin-bottom: 10px; /* Space between the chart and the title */
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .chart-title {
-    font-size: 1.6rem; /* Font size for the title */
-    font-weight: 600; /* Semi-bold weight */
-    color: #333; /* Dark color for readability */
-    text-align: center; /* Center align the title */
-    margin: 0; /* Remove default margin */
-  }
+.chart-container.price-variation-chart {
+  max-width: 70px; /* Increase max-width for the price variation chart */
 }

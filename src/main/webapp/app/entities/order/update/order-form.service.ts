@@ -43,6 +43,9 @@ export type OrderFormGroup = FormGroup<OrderFormGroupContent>;
 
 @Injectable({ providedIn: 'root' })
 export class OrderFormService {
+  // Define the list of statuses
+  private statuses = ['Pending', 'Processing', 'Shipped', 'Delivered', 'Cancelled'];
+
   createOrderFormGroup(order: OrderFormGroupInput = { id: null }): OrderFormGroup {
     const orderRawValue = this.convertOrderToOrderRawValue({
       ...this.getFormDefaults(),
@@ -110,5 +113,9 @@ export class OrderFormService {
       ...order,
       orderDate: order.orderDate ? order.orderDate.format(DATE_TIME_FORMAT) : undefined,
     };
+  }
+
+  getStatuses(): string[] {
+    return this.statuses;
   }
 }

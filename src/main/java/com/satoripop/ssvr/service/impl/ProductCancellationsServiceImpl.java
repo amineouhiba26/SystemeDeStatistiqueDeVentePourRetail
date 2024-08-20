@@ -1,14 +1,19 @@
 package com.satoripop.ssvr.service.impl;
 
+import com.satoripop.ssvr.domain.OrderItem;
 import com.satoripop.ssvr.domain.ProductCancellations;
+import com.satoripop.ssvr.repository.OrderItemRepository;
 import com.satoripop.ssvr.repository.ProductCancellationsRepository;
 import com.satoripop.ssvr.service.ProductCancellationsService;
 import com.satoripop.ssvr.service.dto.ProductCancellationsDTO;
 import com.satoripop.ssvr.service.mapper.ProductCancellationsMapper;
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.stream.Collectors;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -24,15 +29,18 @@ public class ProductCancellationsServiceImpl implements ProductCancellationsServ
     private final Logger log = LoggerFactory.getLogger(ProductCancellationsServiceImpl.class);
 
     private final ProductCancellationsRepository productCancellationsRepository;
-
     private final ProductCancellationsMapper productCancellationsMapper;
+    private final OrderItemRepository orderItemRepository;
 
+    @Autowired
     public ProductCancellationsServiceImpl(
         ProductCancellationsRepository productCancellationsRepository,
-        ProductCancellationsMapper productCancellationsMapper
+        ProductCancellationsMapper productCancellationsMapper,
+        OrderItemRepository orderItemRepository
     ) {
         this.productCancellationsRepository = productCancellationsRepository;
         this.productCancellationsMapper = productCancellationsMapper;
+        this.orderItemRepository = orderItemRepository;
     }
 
     @Override
@@ -59,7 +67,6 @@ public class ProductCancellationsServiceImpl implements ProductCancellationsServ
             .findById(productCancellationsDTO.getId())
             .map(existingProductCancellations -> {
                 productCancellationsMapper.partialUpdate(existingProductCancellations, productCancellationsDTO);
-
                 return existingProductCancellations;
             })
             .map(productCancellationsRepository::save)
@@ -84,5 +91,25 @@ public class ProductCancellationsServiceImpl implements ProductCancellationsServ
     public void delete(UUID id) {
         log.debug("Request to delete ProductCancellations : {}", id);
         productCancellationsRepository.deleteById(id);
+    }
+
+    public List<ProductCancellationsDTO> findProductCancellationsByProductId(UUID productId) {
+        List<OrderItem> orderItems = orderItemRepository.findByProductId(productId);
+        List<UUID> orderItemIds = orderItems.stream().map(OrderItem::getId).collect(Collectors.toList());
+
+        List<ProductCancellations> cancellations = productCancellationsRepository.findByOrderItemIdIn(orderItemIds);
+        return cancellations
+            .stream()
+            .map(productCancellationsMapper::toDto) //
+            .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<ProductCancellationsDTO> findAllByOrderItem_Product_Id(UUID productId) {
+        return productCancellationsRepository
+            .findAllByOrderItem_Product_Id(productId)
+            .stream()
+            .map(productCancellationsMapper::toDto)
+            .collect(Collectors.toList());
     }
 }

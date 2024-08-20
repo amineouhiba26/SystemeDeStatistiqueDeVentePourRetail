@@ -1,6 +1,5 @@
 package com.satoripop.ssvr.web.rest;
 
-import com.satoripop.ssvr.repository.ProductCancellationsRepository;
 import com.satoripop.ssvr.service.ProductCancellationsService;
 import com.satoripop.ssvr.service.dto.ProductCancellationsDTO;
 import com.satoripop.ssvr.web.rest.errors.BadRequestAlertException;
@@ -39,14 +38,8 @@ public class ProductCancellationsResource {
 
     private final ProductCancellationsService productCancellationsService;
 
-    private final ProductCancellationsRepository productCancellationsRepository;
-
-    public ProductCancellationsResource(
-        ProductCancellationsService productCancellationsService,
-        ProductCancellationsRepository productCancellationsRepository
-    ) {
+    public ProductCancellationsResource(ProductCancellationsService productCancellationsService) {
         this.productCancellationsService = productCancellationsService;
-        this.productCancellationsRepository = productCancellationsRepository;
     }
 
     /**
@@ -93,7 +86,7 @@ public class ProductCancellationsResource {
             throw new BadRequestAlertException("Invalid ID", ENTITY_NAME, "idinvalid");
         }
 
-        if (!productCancellationsRepository.existsById(id)) {
+        if (!productCancellationsService.findOne(id).isPresent()) {
             throw new BadRequestAlertException("Entity not found", ENTITY_NAME, "idnotfound");
         }
 
@@ -128,7 +121,7 @@ public class ProductCancellationsResource {
             throw new BadRequestAlertException("Invalid ID", ENTITY_NAME, "idinvalid");
         }
 
-        if (!productCancellationsRepository.existsById(id)) {
+        if (!productCancellationsService.findOne(id).isPresent()) {
             throw new BadRequestAlertException("Entity not found", ENTITY_NAME, "idnotfound");
         }
 
@@ -183,5 +176,10 @@ public class ProductCancellationsResource {
             .noContent()
             .headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString()))
             .build();
+    }
+
+    @GetMapping("/product-cancellations/by-product" + "/{productId}")
+    public List<ProductCancellationsDTO> getProductCancellationsByProductId(@PathVariable UUID productId) {
+        return productCancellationsService.findAllByOrderItem_Product_Id(productId);
     }
 }

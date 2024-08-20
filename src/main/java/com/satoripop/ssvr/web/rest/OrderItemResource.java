@@ -3,13 +3,13 @@ package com.satoripop.ssvr.web.rest;
 import com.satoripop.ssvr.repository.OrderItemRepository;
 import com.satoripop.ssvr.service.OrderItemService;
 import com.satoripop.ssvr.service.dto.OrderItemDTO;
+import com.satoripop.ssvr.service.dto.PriceHistoryDTO;
+import com.satoripop.ssvr.service.dto.ProductDTO;
 import com.satoripop.ssvr.web.rest.errors.BadRequestAlertException;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
-import java.util.UUID;
+import java.time.LocalDate;
+import java.util.*;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import org.slf4j.Logger;
@@ -179,5 +179,84 @@ public class OrderItemResource {
             .noContent()
             .headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString()))
             .build();
+    }
+
+    @GetMapping("/order-items/product/{productId}")
+    public ResponseEntity<List<OrderItemDTO>> getPriceHistoriesByProductId(@PathVariable UUID productId) {
+        log.debug("REST request to get PriceHistories by productId : {}", productId);
+        List<OrderItemDTO> orderItems = orderItemService.findByProductId(productId);
+        return ResponseEntity.ok(orderItems);
+    }
+
+    @GetMapping("/order-items/top-products")
+    public ResponseEntity<List<ProductDTO>> getTop10MostSoldProductsForLastMonth() {
+        log.debug("REST request to get top 10 most sold products for the last month");
+        List<ProductDTO> topProducts = orderItemService.getTop10MostSoldProductsForLastMonth();
+        return ResponseEntity.ok(topProducts);
+    }
+
+    /**
+     * {@code GET  /order-items/total-quantity/product/{productId}} : get the total quantity ordered by product ID.
+     *
+     * @param productId the ID of the product
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the total quantity ordered.
+     */
+    @GetMapping("/order-items/total-quantity/product/{productId}")
+    public ResponseEntity<Long> getTotalQuantityOrderedByProductId(@PathVariable UUID productId) {
+        log.debug("REST request to get total quantity ordered by productId : {}", productId);
+        Long totalQuantity = orderItemService.getTotalQuantityOrderedByProductId(productId);
+        return ResponseEntity.ok(totalQuantity);
+    }
+
+    @GetMapping("/order-items/sales/day-of-week")
+    public ResponseEntity<List<Map<String, Object>>> getSalesByDayOfWeek(
+        @RequestParam("startDate") String startDateStr,
+        @RequestParam("endDate") String endDateStr
+    ) {
+        LocalDate startDate = LocalDate.parse(startDateStr);
+        LocalDate endDate = LocalDate.parse(endDateStr);
+        List<Map<String, Object>> salesData = orderItemService.getSalesByDayOfWeek(startDate, endDate);
+        return ResponseEntity.ok(salesData);
+    }
+
+    @GetMapping("/order-items/sales/week")
+    public ResponseEntity<List<Map<String, Object>>> getSalesByWeek(
+        @RequestParam("startDate") String startDateStr,
+        @RequestParam("endDate") String endDateStr
+    ) {
+        LocalDate startDate = LocalDate.parse(startDateStr);
+        LocalDate endDate = LocalDate.parse(endDateStr);
+        List<Map<String, Object>> salesData = orderItemService.getSalesByWeek(startDate, endDate);
+        return ResponseEntity.ok(salesData);
+    }
+
+    @GetMapping("/order-items/sales/month")
+    public ResponseEntity<List<Map<String, Object>>> getSalesByMonth(
+        @RequestParam("startDate") String startDateStr,
+        @RequestParam("endDate") String endDateStr
+    ) {
+        LocalDate startDate = LocalDate.parse(startDateStr);
+        LocalDate endDate = LocalDate.parse(endDateStr);
+        List<Map<String, Object>> salesData = orderItemService.getSalesByMonth(startDate, endDate);
+        return ResponseEntity.ok(salesData);
+    }
+
+    /**
+     * {@code GET  /order-items/sales/hour} : get sales data grouped by hour for a specific date range.
+     *
+     * @param startDateStr the start date of the range (inclusive).
+     * @param endDateStr the end date of the range (inclusive).
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of sales data grouped by hour.
+     */
+    @GetMapping("/order-items/sales/hour")
+    public ResponseEntity<List<Map<String, Object>>> getSalesByHour(
+        @RequestParam("startDate") String startDateStr,
+        @RequestParam("endDate") String endDateStr
+    ) {
+        log.debug("REST request to get sales by hour from {} to {}", startDateStr, endDateStr);
+        LocalDate startDate = LocalDate.parse(startDateStr);
+        LocalDate endDate = LocalDate.parse(endDateStr);
+        List<Map<String, Object>> salesData = orderItemService.getSalesByHour(startDate, endDate);
+        return ResponseEntity.ok(salesData);
     }
 }

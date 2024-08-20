@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpResponse } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { catchError, Observable } from 'rxjs';
 
 import { isPresent } from 'app/core/util/operators';
 import { ApplicationConfigService } from 'app/core/config/application-config.service';
@@ -17,6 +17,13 @@ export class ProductCancellationsService {
   protected resourceUrl = this.applicationConfigService.getEndpointFor('api/product-cancellations');
 
   constructor(protected http: HttpClient, protected applicationConfigService: ApplicationConfigService) {}
+
+  getProductCancellationsByProductId(productId: string): Observable<IProductCancellations[]> {
+    // Construct the URL with the productId as a path parameter
+    const url = `${this.resourceUrl}/by-product/${productId}`;
+
+    return this.http.get<IProductCancellations[]>(url).pipe(catchError(this.handleError));
+  }
 
   create(productCancellations: NewProductCancellations): Observable<EntityResponseType> {
     return this.http.post<IProductCancellations>(this.resourceUrl, productCancellations, { observe: 'response' });
@@ -79,5 +86,11 @@ export class ProductCancellationsService {
       return [...productCancellationsToAdd, ...productCancellationsCollection];
     }
     return productCancellationsCollection;
+  }
+
+  private handleError(error: any): Observable<never> {
+    // Handle error here, e.g., log to console or show a notification
+    console.error('An error occurred:', error);
+    throw error;
   }
 }

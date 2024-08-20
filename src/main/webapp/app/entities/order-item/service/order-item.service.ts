@@ -15,6 +15,9 @@ export type EntityArrayResponseType = HttpResponse<IOrderItem[]>;
 @Injectable({ providedIn: 'root' })
 export class OrderItemService {
   protected resourceUrl = this.applicationConfigService.getEndpointFor('api/order-items');
+  protected topProductsUrl = this.applicationConfigService.getEndpointFor('api/order-items/top-products');
+  private totalQuantityUrl: string = this.applicationConfigService.getEndpointFor('api/order-items/total-quantity/product');
+  protected salesByHourUrl = this.applicationConfigService.getEndpointFor('api/order-items/sales/hour');
 
   constructor(protected http: HttpClient, protected applicationConfigService: ApplicationConfigService) {}
 
@@ -51,6 +54,24 @@ export class OrderItemService {
     return o1 && o2 ? this.getOrderItemIdentifier(o1) === this.getOrderItemIdentifier(o2) : o1 === o2;
   }
 
+  // New method to get sales by hour for a specific date range
+
+  getSalesByDayOfWeek(startDate: string, endDate: string): Observable<any[]> {
+    return this.http.get<any[]>(`api/order-items/sales/day-of-week?startDate=${startDate}&endDate=${endDate}`);
+  }
+
+  getSalesByWeek(startDate: string, endDate: string): Observable<any[]> {
+    return this.http.get<any[]>(`api/order-items/sales/week?startDate=${startDate}&endDate=${endDate}`);
+  }
+
+  getSalesByMonth(startDate: string, endDate: string): Observable<any[]> {
+    return this.http.get<any[]>(`api/order-items/sales/month?startDate=${startDate}&endDate=${endDate}`);
+  }
+
+  getSalesByHour(startDate: string, endDate: string): Observable<any[]> {
+    return this.http.get<any[]>(`api/order-items/sales/hour?startDate=${startDate}&endDate=${endDate}`);
+  }
+
   addOrderItemToCollectionIfMissing<Type extends Pick<IOrderItem, 'id'>>(
     orderItemCollection: Type[],
     ...orderItemsToCheck: (Type | null | undefined)[]
@@ -69,5 +90,13 @@ export class OrderItemService {
       return [...orderItemsToAdd, ...orderItemCollection];
     }
     return orderItemCollection;
+  }
+
+  getTop10MostSoldProducts(): Observable<any[]> {
+    return this.http.get<any[]>(this.topProductsUrl);
+  }
+
+  getTotalQuantityByProductId(productId: string): Observable<number> {
+    return this.http.get<number>(`${this.totalQuantityUrl}/${productId}`);
   }
 }

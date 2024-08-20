@@ -16,10 +16,12 @@
           <label class="form-label" jhiTranslate="ssvrApp.productCancellations.id" for="field_id">Id</label>
           <input type="text" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
         </div>
-
         <div class="row mb-3">
           <label class="form-label" jhiTranslate="ssvrApp.productCancellations.reason" for="field_reason">Reason</label>
-          <input type="text" class="form-control" name="reason" id="field_reason" data-cy="reason" formControlName="reason" />
+          <select class="form-control" id="field_reason" data-cy="reason" name="reason" formControlName="reason">
+            <option [ngValue]="null"></option>
+            <option *ngFor="let reasonOption of reasonOptions" [ngValue]="reasonOption">{{ reasonOption }}</option>
+          </select>
         </div>
 
         <div class="row mb-3">

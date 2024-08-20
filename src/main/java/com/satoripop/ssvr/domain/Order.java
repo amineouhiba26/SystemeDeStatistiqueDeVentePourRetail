@@ -20,7 +20,7 @@ public class Order extends AbstractAuditingEntity<UUID> implements Serializable 
     private static final long serialVersionUID = 1L;
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
     private UUID id;
 

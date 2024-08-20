@@ -3,6 +3,7 @@ package com.satoripop.ssvr.web.rest;
 import com.satoripop.ssvr.repository.PriceHistoryRepository;
 import com.satoripop.ssvr.repository.ProductRepository;
 import com.satoripop.ssvr.service.PriceHistoryService;
+import com.satoripop.ssvr.service.ProductCancellationsService;
 import com.satoripop.ssvr.service.dto.PriceHistoryDTO;
 import com.satoripop.ssvr.web.rest.errors.BadRequestAlertException;
 import java.net.URI;
@@ -15,6 +16,7 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -37,6 +39,7 @@ public class PriceHistoryResource {
 
     private static final String ENTITY_NAME = "priceHistory";
     private final ProductRepository productRepository;
+    private final ProductCancellationsService productCancellationsService;
 
     @Value("${jhipster.clientApp.name}")
     private String applicationName;
@@ -48,11 +51,13 @@ public class PriceHistoryResource {
     public PriceHistoryResource(
         PriceHistoryService priceHistoryService,
         PriceHistoryRepository priceHistoryRepository,
-        ProductRepository productRepository
+        ProductRepository productRepository,
+        ProductCancellationsService productCancellationsService
     ) {
         this.priceHistoryService = priceHistoryService;
         this.priceHistoryRepository = priceHistoryRepository;
         this.productRepository = productRepository;
+        this.productCancellationsService = productCancellationsService;
     }
 
     /**

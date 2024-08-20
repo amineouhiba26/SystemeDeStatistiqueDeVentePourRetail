@@ -27,6 +27,9 @@ export type ProductCancellationsFormGroup = FormGroup<ProductCancellationsFormGr
 
 @Injectable({ providedIn: 'root' })
 export class ProductCancellationsFormService {
+  // Define default options for the reason select dropdown
+  private reasonOptions: string[] = ['reason1', 'reason2', 'reason3', 'reason4'];
+
   createProductCancellationsFormGroup(
     productCancellations: ProductCancellationsFormGroupInput = { id: null }
   ): ProductCancellationsFormGroup {
@@ -42,7 +45,7 @@ export class ProductCancellationsFormService {
           validators: [Validators.required],
         }
       ),
-      reason: new FormControl(productCancellationsRawValue.reason),
+      reason: new FormControl(productCancellationsRawValue.reason, Validators.required), // Ensure validation if needed
       orderItem: new FormControl(productCancellationsRawValue.orderItem),
       order: new FormControl(productCancellationsRawValue.order),
     });
@@ -66,5 +69,10 @@ export class ProductCancellationsFormService {
     return {
       id: null,
     };
+  }
+
+  // Method to get reason options for the select dropdown
+  getReasonOptions(): string[] {
+    return this.reasonOptions;
   }
 }

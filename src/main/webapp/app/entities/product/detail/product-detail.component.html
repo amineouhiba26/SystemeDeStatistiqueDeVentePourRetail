@@ -59,8 +59,14 @@
     <div class="product-chart-section">
       <div class="chart-container">
         <canvas id="productPriceVariationChart-{{ product.id }}"></canvas>
-        <div class="title-wrapper">
-          <span> Product's price variation </span>
+        <div class="chart-title">
+          <span>Product's price variation</span>
+        </div>
+      </div>
+      <div class="chart-container">
+        <canvas id="productCancellationChart-{{ product?.id }}"></canvas>
+        <div class="chart-title">
+          <span>Product's cancellation reasons</span>
         </div>
       </div>
     </div>

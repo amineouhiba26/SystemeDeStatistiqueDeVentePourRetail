@@ -24,6 +24,7 @@ export class ProductCancellationsUpdateComponent implements OnInit {
   ordersSharedCollection: IOrder[] = [];
 
   editForm: ProductCancellationsFormGroup = this.productCancellationsFormService.createProductCancellationsFormGroup();
+  reasonOptions: string[] = [];
 
   constructor(
     protected productCancellationsService: ProductCancellationsService,
@@ -45,6 +46,7 @@ export class ProductCancellationsUpdateComponent implements OnInit {
       }
 
       this.loadRelationshipsOptions();
+      this.reasonOptions = this.productCancellationsFormService.getReasonOptions(); // Initialize reason options
     });
   }
 

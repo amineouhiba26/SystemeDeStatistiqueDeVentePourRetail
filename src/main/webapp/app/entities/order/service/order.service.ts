@@ -27,6 +27,8 @@ export type EntityArrayResponseType = HttpResponse<IOrder[]>;
 @Injectable({ providedIn: 'root' })
 export class OrderService {
   protected resourceUrl = this.applicationConfigService.getEndpointFor('api/orders');
+  protected orderStatusUrl = this.applicationConfigService.getEndpointFor('api/orders/status'); // Existing line
+  protected orderStatusesUrl = this.applicationConfigService.getEndpointFor('api/orders/statuses'); // New line
 
   constructor(protected http: HttpClient, protected applicationConfigService: ApplicationConfigService) {}
 
@@ -72,6 +74,14 @@ export class OrderService {
 
   compareOrder(o1: Pick<IOrder, 'id'> | null, o2: Pick<IOrder, 'id'> | null): boolean {
     return o1 && o2 ? this.getOrderIdentifier(o1) === this.getOrderIdentifier(o2) : o1 === o2;
+  }
+
+  getOrderStatus(id: string): Observable<HttpResponse<string>> {
+    return this.http.get<string>(`${this.orderStatusUrl}/${id}`, { observe: 'response' });
+  }
+
+  getOrderStatuses(): Observable<HttpResponse<string[]>> {
+    return this.http.get<string[]>(this.orderStatusesUrl, { observe: 'response' });
   }
 
   addOrderToCollectionIfMissing<Type extends Pick<IOrder, 'id'>>(
