@@ -1,30 +1,70 @@
 <div class="dashboard">
-  <!-- Dashboard Content -->
   <div class="dashboard-content">
-    <!-- Chart Items -->
-    <div class="chart-item">
-      <h4>The 10 Most Sold Products</h4>
-      <canvas id="productChart"></canvas>
+    <!-- Low Stock Threshold Input and Chart -->
+    <div class="chart-item low-stock-section">
+      <h4>Stock Checker</h4>
+      <canvas id="lowStockChart"></canvas>
+
+      <div class="input-container">
+        <input type="number" [(ngModel)]="threshold" (ngModelChange)="loadLowStockProducts()" min="1" placeholder="Enter threshold" />
+      </div>
     </div>
+
+    <!-- Order Status Chart -->
     <div class="chart-item">
       <h4>Order Status Distribution</h4>
-      <canvas id="statusChart"></canvas>
+      <div class="chart-scrollable">
+        <canvas id="statusChart"></canvas>
+      </div>
     </div>
+
+    <!-- Top 10 Most Sold Products Chart -->
     <div class="chart-item">
-      <h4>Sales By Hour</h4>
-      <canvas id="salesByHourChart"></canvas>
+      <h4>Top 10 Most Sold Products</h4>
+      <div class="chart-scrollable">
+        <canvas id="productChart"></canvas>
+      </div>
     </div>
+
+    <!-- Sales by Day of Week Chart -->
     <div class="chart-item">
       <h4>Sales by Day of the Week</h4>
-      <canvas id="salesByDayOfWeekChart"></canvas>
+      <div class="chart-scrollable">
+        <canvas id="salesByDayOfWeekChart"></canvas>
+      </div>
     </div>
+
+    <!-- Weekly Sales Revenue Chart -->
     <div class="chart-item">
-      <h4>Sales by Week</h4>
-      <canvas id="salesByWeekChart"></canvas>
+      <h4>Weekly Sales Revenue</h4>
+      <div class="chart-scrollable">
+        <canvas id="salesByWeekChart"></canvas>
+      </div>
     </div>
+
+    <!-- Sales by Month Chart -->
     <div class="chart-item">
       <h4>Sales by Month</h4>
-      <canvas id="salesByMonthChart"></canvas>
+      <div class="chart-scrollable">
+        <canvas id="salesByMonthChart"></canvas>
+      </div>
+    </div>
+
+    <!-- Sales by Hour and Sales by Payment Method Charts (Next to Each Other) -->
+    <div class="bottom-charts">
+      <div class="bottom-chart">
+        <h4>Sales by Hour</h4>
+        <div class="chart-scrollable">
+          <canvas id="salesByHourChart"></canvas>
+        </div>
+      </div>
+
+      <div class="bottom-chart">
+        <h4>Sales by Payment Method</h4>
+        <div class="chart-scrollable">
+          <canvas id="paymentChart"></canvas>
+        </div>
+      </div>
     </div>
   </div>
 </div>

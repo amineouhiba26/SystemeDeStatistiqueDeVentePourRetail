@@ -1,5 +1,6 @@
 package com.satoripop.ssvr.service;
 
+import com.satoripop.ssvr.domain.Order;
 import com.satoripop.ssvr.service.dto.OrderDTO;
 import java.util.List;
 import java.util.Optional;
@@ -59,5 +60,8 @@ public interface OrderService {
     void delete(UUID id);
 
     Optional<String> getOrderStatus(UUID id);
+
     List<String> getAllOrderStatuses();
+
+    List<Order> getOrdersByPaymentMethod(String paymentMethodName);
 }

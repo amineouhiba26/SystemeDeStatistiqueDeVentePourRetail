@@ -68,3 +68,32 @@
     margin-right: 0;
   }
 }
+
+.mb-3 {
+  border: 1px solid #cce5ff; /* Light blue border */
+  border-radius: 0.375rem; /* Rounded corners */
+  padding: 0.375rem 0.75rem; /* Compact padding */
+  font-size: 0.875rem; /* Smaller font size */
+  line-height: 1.5;
+  width: 100%;
+  max-width: 300px; /* Limit the width */
+  box-shadow: none;
+  transition: all 0.3s ease;
+  background-color: #f0f8ff; /* Very light blue background */
+  color: #003366; /* Dark blue text for contrast */
+
+  &::placeholder {
+    color: #a0c0ff; /* Light blue placeholder color */
+    opacity: 1;
+  }
+
+  &:focus {
+    border-color: #66b3ff; /* Medium light blue border on focus */
+    outline: none;
+    box-shadow: 0 0 0 0.2rem rgba(102, 179, 255, 0.25); /* Soft light blue shadow */
+  }
+
+  &:hover {
+    border-color: #99c2ff; /* Slightly darker light blue border on hover */
+  }
+}

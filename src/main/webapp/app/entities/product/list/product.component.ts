@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpHeaders } from '@angular/common/http';
+import { HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { ActivatedRoute, Data, ParamMap, Router } from '@angular/router';
-import { combineLatest, filter, Observable, switchMap, tap } from 'rxjs';
+import { combineLatest, filter, Observable, Subject, switchMap, tap } from 'rxjs';
+import { debounceTime } from 'rxjs/operators';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 import { IProduct } from '../product.model';
-
 import { ITEMS_PER_PAGE, PAGE_HEADER, TOTAL_COUNT_RESPONSE_HEADER } from 'app/config/pagination.constants';
 import { ASC, DESC, SORT, ITEM_DELETED_EVENT, DEFAULT_SORT_DATA } from 'app/config/navigation.constants';
 import { EntityArrayResponseType, ProductService } from '../service/product.service';
@@ -14,6 +14,7 @@ import { ProductDeleteDialogComponent } from '../delete/product-delete-dialog.co
 @Component({
   selector: 'jhi-product',
   templateUrl: './product.component.html',
+  styleUrls: ['./product.component.scss'],
 })
 export class ProductComponent implements OnInit {
   products?: IProduct[];
@@ -26,6 +27,9 @@ export class ProductComponent implements OnInit {
   totalItems = 0;
   page = 1;
 
+  searchQuery = '';
+  private searchQuerySubject = new Subject<string>();
+
   constructor(
     protected productService: ProductService,
     protected activatedRoute: ActivatedRoute,
@@ -37,6 +41,14 @@ export class ProductComponent implements OnInit {
 
   ngOnInit(): void {
     this.load();
+    this.searchQuerySubject
+      .pipe(
+        debounceTime(300) // Adjust debounce time as needed
+      )
+      .subscribe(query => {
+        this.searchQuery = query;
+        this.load(); // Trigger the load function to refresh the product list based on the search query
+      });
   }
 
   delete(product: IProduct): void {
@@ -56,11 +68,30 @@ export class ProductComponent implements OnInit {
   }
 
   load(): void {
-    this.loadFromBackendWithRouteInformations().subscribe({
-      next: (res: EntityArrayResponseType) => {
-        this.onResponseSuccess(res);
-      },
-    });
+    if (this.searchQuery.trim()) {
+      this.productService.searchProducts(this.searchQuery).subscribe({
+        next: (products: IProduct[]) => {
+          this.products = products;
+          this.totalItems = products.length; // Adjust if needed based on pagination
+        },
+        error: (err: HttpErrorResponse) => {
+          console.error('Error fetching products:', err.message);
+          this.products = [];
+          this.totalItems = 0; // Adjust based on error handling
+        },
+      });
+    } else {
+      this.loadFromBackendWithRouteInformations().subscribe({
+        next: (res: EntityArrayResponseType) => {
+          this.onResponseSuccess(res);
+        },
+        error: (err: HttpErrorResponse) => {
+          console.error('Error fetching products:', err.message);
+          this.products = [];
+          this.totalItems = 0; // Adjust based on error handling
+        },
+      });
+    }
   }
 
   navigateToWithComponentValues(): void {
@@ -89,7 +120,7 @@ export class ProductComponent implements OnInit {
   protected onResponseSuccess(response: EntityArrayResponseType): void {
     this.fillComponentAttributesFromResponseHeader(response.headers);
     const dataFromBody = this.fillComponentAttributesFromResponseBody(response.body);
-    this.products = dataFromBody;
+    this.products = dataFromBody; // Directly use the products as backend handles search
   }
 
   protected fillComponentAttributesFromResponseBody(data: IProduct[] | null): IProduct[] {
@@ -131,5 +162,9 @@ export class ProductComponent implements OnInit {
     } else {
       return [predicate + ',' + ascendingQueryParam];
     }
+  }
+
+  onSearchChange(query: string): void {
+    this.searchQuerySubject.next(query);
   }
 }

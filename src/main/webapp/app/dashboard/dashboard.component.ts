@@ -1,21 +1,31 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { OrderItemService } from '../entities/order-item/service/order-item.service';
 import { OrderService } from '../entities/order/service/order.service';
 import { Chart, registerables } from 'chart.js';
+import { ProductService } from '../entities/product/service/product.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'jhi-app-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss'],
 })
-export class DashboardComponent implements OnInit {
+export class DashboardComponent implements OnInit, OnDestroy {
   products: any[] = [];
   productQuantities: { [productId: string]: number } = {};
   orderStatuses: { [status: string]: number } = {};
   salesByHourData: any[] = [];
+  methodsData: { [methodName: string]: number } = {};
+  chart: any;
+  private subscriptions: Subscription[] = [];
+
+  ordersByMethodChart: Chart | undefined;
+
+  paymentMethods = ['Cash', 'Cheque', 'Credit Card', 'Voucher', 'Click to Pay']; // Example payment methods
 
   visibleProducts: any[] = [];
   showMore: boolean = false;
+  threshold: number = 19; // New property for threshold
 
   private orderStatusChart: Chart | undefined;
   private productChart: Chart | undefined;
@@ -23,10 +33,13 @@ export class DashboardComponent implements OnInit {
   private salesByWeekChart: Chart | undefined;
   private salesByMonthChart: Chart | undefined;
   private salesByHourChart: Chart | undefined;
+  private inventoryChart: Chart | undefined; // New chart for inventory
+  private lowStockChart: Chart | undefined;
+  // New chart for low stock
 
   currentChart: 'dayOfWeek' | 'week' | 'month' = 'dayOfWeek';
 
-  constructor(private orderItemService: OrderItemService, private orderService: OrderService) {
+  constructor(private productService: ProductService, private orderItemService: OrderItemService, private orderService: OrderService) {
     Chart.register(...registerables);
   }
 
@@ -34,6 +47,62 @@ export class DashboardComponent implements OnInit {
     this.loadTopProducts();
     this.loadOrderStatuses();
     this.loadSalesData();
+    this.loadLowStockProducts();
+    this.loadChart();
+
+    // chart
+  }
+  ngOnDestroy(): void {
+    this.destroyChart(this.ordersByMethodChart);
+    this.subscriptions.forEach(sub => sub.unsubscribe());
+  }
+
+  loadLowStockProducts(): void {
+    this.productService.getLowStockProducts(this.threshold).subscribe(response => {
+      const products = response.body || [];
+
+      // Filter out products with invalid or missing names
+      const validProducts = products.filter(product => product.name && product.capacity);
+
+      const productNames = validProducts.map(product => product.name as string); // Safe cast to string
+      const productCapacities = validProducts.map(product => {
+        const capacity = product.capacity ?? '0'; // Default to '0' if capacity is null/undefined
+        return parseInt(capacity, 10); // Parse capacity to an integer
+      });
+
+      this.renderLowStockChart(productNames, productCapacities);
+    });
+  }
+
+  private renderLowStockChart(labels: string[], data: number[]): void {
+    this.destroyChart(this.lowStockChart);
+
+    const ctx = document.getElementById('lowStockChart') as HTMLCanvasElement;
+    if (!ctx) return;
+
+    this.lowStockChart = new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels,
+        datasets: [
+          {
+            label: 'Stock Level',
+            data,
+            backgroundColor: 'rgba(75, 192, 192, 0.2)',
+            borderColor: 'rgba(75, 192, 192, 1)',
+            borderWidth: 1,
+          },
+        ],
+      },
+      options: {
+        responsive: true,
+        scales: {
+          y: {
+            beginAtZero: true,
+          },
+        },
+      },
+    });
   }
 
   loadTopProducts(): void {
@@ -221,7 +290,8 @@ export class DashboardComponent implements OnInit {
     const salesData = data.map(d => d.totalSales);
 
     this.salesByWeekChart = new Chart(ctx, {
-      type: 'line', // Line chart to show sales trend over weeks
+      type: 'bar', // Line chart to show sales trend over
+      // weeks
       data: {
         labels: weeks,
         datasets: [
@@ -231,7 +301,6 @@ export class DashboardComponent implements OnInit {
             backgroundColor: 'rgba(153, 102, 255, 0.2)',
             borderColor: 'rgba(153, 102, 255, 1)',
             borderWidth: 1,
-            fill: true,
           },
         ],
       },
@@ -345,7 +414,7 @@ export class DashboardComponent implements OnInit {
   private getDefaultDateRange(): { startDate: string; endDate: string } {
     const endDate = new Date(); // Today's date
     const startDate = new Date();
-    startDate.setFullYear(startDate.getFullYear() - 1); // 1 year ago
+    startDate.setFullYear(startDate.getFullYear() - 5); // 1 year ago
 
     console.log('Start Date:', startDate.toISOString().split('T')[0]);
     console.log('End Date:', endDate.toISOString().split('T')[0]);
@@ -369,6 +438,49 @@ export class DashboardComponent implements OnInit {
     }
   }
 
+  private renderInventoryChart(): void {
+    this.destroyChart(this.inventoryChart);
+
+    const ctx = document.getElementById('inventoryChart') as HTMLCanvasElement;
+    if (!ctx) return;
+
+    // Filter products based on threshold
+    const filteredProducts = this.products.filter(p => this.productQuantities[p.id] > this.threshold);
+    const labels = filteredProducts.map(p => p.name);
+    const data = labels.map(name => this.productQuantities[this.products.find(p => p.name === name)?.id || ''] || 0);
+
+    this.inventoryChart = new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels: labels,
+        datasets: [
+          {
+            label: 'Products Above Threshold',
+            data: data,
+            backgroundColor: 'rgba(75, 192, 192, 0.2)',
+            borderColor: 'rgba(75, 192, 192, 1)',
+            borderWidth: 1,
+          },
+        ],
+      },
+      options: {
+        responsive: true,
+        scales: {
+          x: {
+            beginAtZero: true,
+          },
+          y: {
+            beginAtZero: true,
+          },
+        },
+      },
+    });
+  }
+
+  updateInventoryChart(): void {
+    this.renderInventoryChart();
+  }
+
   private destroyChart(chart: Chart | undefined): void {
     if (chart) {
       chart.destroy();
@@ -377,5 +489,52 @@ export class DashboardComponent implements OnInit {
 
   toggleChart(chartType: 'dayOfWeek' | 'week' | 'month'): void {
     this.currentChart = chartType;
+  }
+
+  private loadChart(): void {
+    const paymentMethodCounts: { [key: string]: number } = {};
+
+    this.paymentMethods.forEach(method => {
+      this.orderService.getOrdersByPaymentMethod(method).subscribe(response => {
+        paymentMethodCounts[method] = response.body?.length || 0; // Adjust based on your API response structure
+        if (Object.keys(paymentMethodCounts).length === this.paymentMethods.length) {
+          this.createChart(paymentMethodCounts);
+        }
+      });
+    });
+  }
+
+  private createChart(paymentMethodCounts: { [key: string]: number }): void {
+    const ctx = document.getElementById('paymentChart') as HTMLCanvasElement;
+
+    this.chart = new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels: Object.keys(paymentMethodCounts),
+        datasets: [
+          {
+            label: 'Number of Orders',
+            data: Object.values(paymentMethodCounts),
+            backgroundColor: [
+              'rgba(255, 99, 132, 0.2)', // Soft Pink
+              // Soft Orange
+            ],
+            borderColor: [
+              'rgba(255, 99, 132, 1)', // Darker Pink
+              // Darker Orange
+            ],
+            borderWidth: 1,
+          },
+        ],
+      },
+      options: {
+        responsive: true,
+        scales: {
+          x: {
+            beginAtZero: true,
+          },
+        },
+      },
+    });
   }
 }

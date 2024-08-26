@@ -20,14 +20,20 @@
 
         <div class="row mb-3">
           <label class="form-label" jhiTranslate="ssvrApp.payment.paymentMehodName" for="field_paymentMehodName">Payment Mehod Name</label>
-          <input
+          <select
             type="text"
             class="form-control"
             name="paymentMehodName"
             id="field_paymentMehodName"
             data-cy="paymentMehodName"
             formControlName="paymentMehodName"
-          />
+          >
+            <option value="Cash">Cash</option>
+            <option value="Cheque">Cheque</option>
+            <option value="Credit Card">Credit Card</option>
+            <option value="Voucher">Voucher</option>
+            <option value="Click to Pay">Click to Pay</option>
+          </select>
         </div>
 
         <div class="row mb-3">
@@ -58,10 +64,20 @@
             />
           </div>
         </div>
-
         <div class="row mb-3">
-          <label class="form-label" jhiTranslate="ssvrApp.payment.status" for="field_status">Status</label>
-          <input type="text" class="form-control" name="status" id="field_status" data-cy="status" formControlName="status" />
+          <label class="form-label" for="field_status">Payment Status</label>
+          <select class="form-control" id="field_status" data-cy="status" name="status" formControlName="status">
+            <option value="Pending">Pending</option>
+            <option value="Completed">Completed</option>
+            <option value="Failed">Failed</option>
+            <option value="Cancelled">Cancelled</option>
+            <option value="Refunded">Refunded</option>
+            <option value="In Progress">In Progress</option>
+            <option value="On Hold">On Hold</option>
+            <option value="Declined">Declined</option>
+            <option value="Authorized">Authorized</option>
+            <option value="Expired">Expired</option>
+          </select>
         </div>
 
         <div class="row mb-3">
@@ -75,7 +91,7 @@
             [compareWith]="compareOrder"
           >
             <option [ngValue]="null"></option>
-            <option [ngValue]="orderOption" *ngFor="let orderOption of ordersSharedCollection">{{ orderOption.id }}</option>
+            <option [ngValue]="orderOption" *ngFor="let orderOption of ordersSharedCollection">{{ orderOption.incrementId }}</option>
           </select>
         </div>
       </div>

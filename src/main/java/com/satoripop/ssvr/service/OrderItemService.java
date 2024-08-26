@@ -9,7 +9,6 @@ import java.util.Optional;
 import java.util.UUID;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.repository.query.Param;
 
 /**
  * Service Interface for managing {@link com.satoripop.ssvr.domain.OrderItem}.
@@ -70,9 +69,12 @@ public interface OrderItemService {
 
     List<Map<String, Object>> getSalesByDayOfWeek(LocalDate startDate, LocalDate endDate);
 
-    List<Map<String, Object>> getSalesByWeek(LocalDate startDate, LocalDate endDate);
+    //List<Map<String, Object>> getSalesByWeek(LocalDate
+    // startDate, LocalDate endDate);
 
     List<Map<String, Object>> getSalesByMonth(LocalDate startDate, LocalDate endDate);
 
     List<Map<String, Object>> getSalesByHour(LocalDate startDate, LocalDate endDate);
+
+    List<Map<String, Object>> getSalesByWeek(LocalDate startDate, LocalDate endDate);
 }

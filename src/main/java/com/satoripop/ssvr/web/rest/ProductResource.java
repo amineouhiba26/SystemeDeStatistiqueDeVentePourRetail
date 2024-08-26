@@ -1,5 +1,6 @@
 package com.satoripop.ssvr.web.rest;
 
+import com.satoripop.ssvr.domain.Product;
 import com.satoripop.ssvr.repository.ProductRepository;
 import com.satoripop.ssvr.service.PriceHistoryService;
 import com.satoripop.ssvr.service.ProductService;
@@ -181,5 +182,24 @@ public class ProductResource {
             .noContent()
             .headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString()))
             .build();
+    }
+
+    @GetMapping("/products/levels")
+    public ResponseEntity<List<Product>> getInventoryLevels() {
+        List<Product> products = productService.getAllProducts();
+        return ResponseEntity.ok(products);
+    }
+
+    // Endpoint to fetch products with low stock (below a certain threshold)
+    @GetMapping("/products/low-stock")
+    public ResponseEntity<List<Product>> getLowStockProducts(@RequestParam(name = "threshold", defaultValue = "10") int threshold) {
+        List<Product> lowStockProducts = productService.getLowStockProducts(threshold);
+        return ResponseEntity.ok(lowStockProducts);
+    }
+
+    @GetMapping("/products/search")
+    public ResponseEntity<List<ProductDTO>> searchProducts(@RequestParam String query) {
+        List<ProductDTO> products = productService.searchProducts(query);
+        return ResponseEntity.ok(products);
     }
 }

@@ -27,9 +27,13 @@ import { ActiveMenuDirective } from './layouts/navbar/active-menu.directive';
 import { ErrorComponent } from './layouts/error/error.component';
 import { PriceHistoryChartComponent } from './entities/my-chart/my-chart.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { FormsModule } from '@angular/forms';
+import { LowStockChartComponent } from './low-stock-chart/low-stock-chart.component';
+import { PaymentMethodComponent } from './payment-method/payment-method.component';
 
 @NgModule({
   imports: [
+    FormsModule,
     CommonModule,
 
     BrowserModule,
@@ -65,6 +69,8 @@ import { DashboardComponent } from './dashboard/dashboard.component';
     FooterComponent,
     PriceHistoryChartComponent,
     DashboardComponent,
+    LowStockChartComponent,
+    PaymentMethodComponent,
   ],
   bootstrap: [MainComponent],
 })

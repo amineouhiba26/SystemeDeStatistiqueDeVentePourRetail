@@ -1,6 +1,8 @@
 package com.satoripop.ssvr.service;
 
+import com.satoripop.ssvr.domain.Product;
 import com.satoripop.ssvr.service.dto.ProductDTO;
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 import org.springframework.data.domain.Page;
@@ -56,4 +58,10 @@ public interface ProductService {
      * @param id the id of the entity.
      */
     void delete(UUID id);
+
+    List<Product> getAllProducts();
+
+    List<Product> getLowStockProducts(int threshold);
+
+    List<ProductDTO> searchProducts(String query);
 }

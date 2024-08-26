@@ -1,5 +1,6 @@
 package com.satoripop.ssvr.web.rest;
 
+import com.satoripop.ssvr.domain.Order;
 import com.satoripop.ssvr.repository.OrderRepository;
 import com.satoripop.ssvr.service.OrderService;
 import com.satoripop.ssvr.service.dto.OrderDTO;
@@ -191,5 +192,11 @@ public class OrderResource {
     @GetMapping("/orders/statuses")
     public List<String> getAllOrderStatuses() {
         return orderService.getAllOrderStatuses();
+    }
+
+    @GetMapping("/orders/by-payment-method")
+    public ResponseEntity<List<Order>> getOrdersByPaymentMethod(@RequestParam String paymentMethodName) {
+        List<Order> orders = orderService.getOrdersByPaymentMethod(paymentMethodName);
+        return ResponseEntity.ok().body(orders);
     }
 }

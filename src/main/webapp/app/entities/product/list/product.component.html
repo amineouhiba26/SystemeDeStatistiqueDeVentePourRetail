@@ -21,11 +21,21 @@
   </h2>
 
   <jhi-alert-error></jhi-alert-error>
-
   <jhi-alert></jhi-alert>
 
   <div class="alert alert-warning" id="no-result" *ngIf="products?.length === 0">
     <span jhiTranslate="ssvrApp.product.home.notFound">No Products found</span>
+  </div>
+
+  <!-- Search Field -->
+  <div class="mb-3">
+    <input
+      type="text"
+      class="form-control search-input"
+      placeholder="Search by SKU or Product Name"
+      [(ngModel)]="searchQuery"
+      (ngModelChange)="onSearchChange($event)"
+    />
   </div>
 
   <div class="table-responsive table-entities" id="entities" *ngIf="products && products.length > 0">

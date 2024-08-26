@@ -8,7 +8,7 @@ export interface IPayment {
   paymentMehodeCode?: string | null;
   paymentDate?: dayjs.Dayjs | null;
   status?: string | null;
-  payment?: Pick<IOrder, 'id'> | null;
+  payment?: IOrder | null;
 }
 
 export type NewPayment = Omit<IPayment, 'id'> & { id: null };

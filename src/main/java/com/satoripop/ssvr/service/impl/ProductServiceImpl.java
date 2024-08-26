@@ -5,8 +5,10 @@ import com.satoripop.ssvr.repository.ProductRepository;
 import com.satoripop.ssvr.service.ProductService;
 import com.satoripop.ssvr.service.dto.ProductDTO;
 import com.satoripop.ssvr.service.mapper.ProductMapper;
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.stream.Collectors;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -81,5 +83,35 @@ public class ProductServiceImpl implements ProductService {
     public void delete(UUID id) {
         log.debug("Request to delete Product : {}", id);
         productRepository.deleteById(id);
+    }
+
+    // Fetch all products
+    @Override
+    public List<Product> getAllProducts() {
+        return productRepository.findAll();
+    }
+
+    @Override
+    // Fetch products with low stock levels based on a threshold
+    public List<Product> getLowStockProducts(int threshold) {
+        return productRepository
+            .findAll()
+            .stream()
+            .filter(product -> {
+                try {
+                    // Convert capacity to Integer and compare
+                    return Integer.parseInt(product.getCapacity()) < threshold;
+                } catch (NumberFormatException e) {
+                    // Skip products with non-numeric capacity
+                    return false;
+                }
+            })
+            .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<ProductDTO> searchProducts(String query) {
+        List<Product> products = productRepository.searchProducts(query);
+        return products.stream().map(productMapper::toDto).collect(Collectors.toList());
     }
 }

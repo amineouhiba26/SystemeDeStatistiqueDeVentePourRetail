@@ -57,29 +57,37 @@ public interface OrderItemRepository extends JpaRepository<OrderItem, UUID> {
     List<Object[]> findSalesByDayOfWeek(@Param("startDate") Instant startDate, @Param("endDate") Instant endDate);
 
     @Query(
-        "SELECT FUNCTION('TO_CHAR', oi.createdDate, 'Week') AS week, SUM(oi.price * oi.quantityOrdered) AS totalSales " +
+        "SELECT FUNCTION('TO_CHAR', oi.lastModifiedDate, 'IYYY-IW') AS week, " +
+        "SUM(oi.price * oi.quantityOrdered) AS totalSales " +
         "FROM OrderItem oi " +
-        "WHERE oi.createdDate BETWEEN :startDate AND :endDate " +
-        "GROUP BY FUNCTION('TO_CHAR', oi.createdDate, 'Week') " +
-        "ORDER BY FUNCTION('TO_CHAR', oi.createdDate, 'Week')"
+        "WHERE oi.lastModifiedDate BETWEEN :startDate AND :endDate " +
+        "GROUP BY FUNCTION('TO_CHAR', oi.lastModifiedDate, 'IYYY-IW') " +
+        "ORDER BY FUNCTION('TO_CHAR', oi.lastModifiedDate, 'IYYY-IW')"
     )
     List<Object[]> findSalesByWeek(@Param("startDate") Instant startDate, @Param("endDate") Instant endDate);
 
     @Query(
-        "SELECT FUNCTION('TO_CHAR', oi.createdDate, 'Month') AS month, SUM(oi.price * oi.quantityOrdered) AS totalSales " +
+        "SELECT FUNCTION('TO_CHAR', oi.lastModifiedDate, 'IYYY-MM') " +
+        "AS monthYear, " +
+        "SUM(oi.price * oi.quantityOrdered) AS totalSales " +
         "FROM OrderItem oi " +
-        "WHERE oi.createdDate BETWEEN :startDate AND :endDate " +
-        "GROUP BY FUNCTION('TO_CHAR', oi.createdDate, 'Month') " +
-        "ORDER BY FUNCTION('TO_CHAR', oi.createdDate, 'Month')"
+        "WHERE oi.lastModifiedDate BETWEEN :startDate AND " +
+        ":endDate " +
+        "GROUP BY FUNCTION('TO_CHAR', oi.lastModifiedDate, " +
+        "'IYYY-MM') " +
+        "ORDER BY FUNCTION('TO_CHAR', oi.lastModifiedDate, 'IYYY-MM')"
     )
     List<Object[]> findSalesByMonth(@Param("startDate") Instant startDate, @Param("endDate") Instant endDate);
 
     @Query(
-        "SELECT FUNCTION('TO_CHAR', oi.createdDate, 'HH24') AS hour, SUM(oi.price * oi.quantityOrdered) AS totalSales " +
+        "SELECT FUNCTION('TO_CHAR', oi.lastModifiedDate, 'HH24') AS hour, SUM(oi.price * oi.quantityOrdered) AS totalSales " +
         "FROM OrderItem oi " +
-        "WHERE oi.createdDate BETWEEN :startDate AND :endDate " +
-        "GROUP BY FUNCTION('TO_CHAR', oi.createdDate, 'HH24') " +
+        "WHERE oi.lastModifiedDate BETWEEN :startDate AND :endDate " +
+        "GROUP BY FUNCTION('TO_CHAR', oi.lastModifiedDate, 'HH24') " +
         "ORDER BY hour"
     )
     List<Object[]> findSalesByHour(@Param("startDate") Instant startDate, @Param("endDate") Instant endDate);
+    /*@Query("SELECT WEEK(o.orderDate), SUM(o.salesAmount) FROM OrderItem o WHERE o.orderDate BETWEEN :startDate AND :endDate GROUP BY WEEK(o.orderDate)")
+    List<Object[]> findSalesByWeek(@Param("startDate") Instant startDate, @Param("endDate") Instant endDate);*/
+
 }

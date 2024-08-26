@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpResponse } from '@angular/common/http';
+import { HttpClient, HttpParams, HttpResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 import { isPresent } from 'app/core/util/operators';
@@ -15,6 +15,8 @@ export type EntityArrayResponseType = HttpResponse<IProduct[]>;
 @Injectable({ providedIn: 'root' })
 export class ProductService {
   protected resourceUrl = this.applicationConfigService.getEndpointFor('api/products');
+  protected inventoryLevelsUrl = this.applicationConfigService.getEndpointFor('api/products/levels');
+  protected lowStockUrl = this.applicationConfigService.getEndpointFor('api/products/low-stock');
 
   constructor(protected http: HttpClient, protected applicationConfigService: ApplicationConfigService) {}
 
@@ -35,7 +37,10 @@ export class ProductService {
   }
 
   query(req?: any): Observable<EntityArrayResponseType> {
-    const options = createRequestOption(req);
+    let options = createRequestOption(req);
+    if (req && req.search) {
+      options = options.set('search', req.search); // Add search parameter to options
+    }
     return this.http.get<IProduct[]>(this.resourceUrl, { params: options, observe: 'response' });
   }
 
@@ -46,13 +51,26 @@ export class ProductService {
   getProductIdentifier(product: Pick<IProduct, 'id'>): string {
     return product.id;
   }
-  // Use this method to get product name safely
+
   getProductName(product: IProduct | null): string {
     return product?.name ?? 'Unknown'; // Handle null or undefined
   }
 
   compareProduct(o1: Pick<IProduct, 'id'> | null, o2: Pick<IProduct, 'id'> | null): boolean {
     return o1 && o2 ? this.getProductIdentifier(o1) === this.getProductIdentifier(o2) : o1 === o2;
+  }
+
+  getInventoryLevels(): Observable<EntityArrayResponseType> {
+    return this.http.get<IProduct[]>(this.inventoryLevelsUrl, { observe: 'response' });
+  }
+
+  getLowStockProducts(threshold: number): Observable<EntityArrayResponseType> {
+    return this.http.get<IProduct[]>(`${this.lowStockUrl}?threshold=${threshold}`, { observe: 'response' });
+  }
+
+  searchProducts(query: string): Observable<IProduct[]> {
+    const params = new HttpParams().set('query', query);
+    return this.http.get<IProduct[]>(`${this.resourceUrl}/search`, { params });
   }
 
   addProductToCollectionIfMissing<Type extends Pick<IProduct, 'id'>>(

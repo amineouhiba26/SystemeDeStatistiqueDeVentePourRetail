@@ -106,4 +106,9 @@ public class OrderServiceImpl implements OrderService {
             .map(Order::getStatus) // Extract status from each Order
             .collect(Collectors.toList()); // Collect into a list
     }
+
+    @Override
+    public List<Order> getOrdersByPaymentMethod(String paymentMethodName) {
+        return orderRepository.findOrdersByPaymentMethod(paymentMethodName);
+    }
 }

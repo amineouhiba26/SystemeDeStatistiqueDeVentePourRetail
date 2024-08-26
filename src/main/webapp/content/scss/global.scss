@@ -236,4 +236,77 @@ angular-cli removes postcss-rtl processed inline css, processed rules must be ad
     }
   }
 }
+
+.footer {
+  background-color: #2c3e50; // Dark navy blue
+  color: #ecf0f1; // Light gray
+  padding: 10px 0; // Reduced padding
+  font-size: 12px; // Smaller font size
+
+  .footer-content {
+    display: flex;
+    justify-content: space-between;
+    max-width: 1200px;
+    margin: 0 auto;
+    flex-wrap: wrap;
+
+    .section {
+      flex: 1;
+      margin: 5px; // Reduced margin for each section
+    }
+
+    .company-info {
+      h4 {
+        font-size: 16px; // Smaller heading size
+        margin-bottom: 5px; // Reduced margin
+      }
+
+      p {
+        margin: 3px 0; // Reduced paragraph margins
+        line-height: 1.4; // Slightly tighter line height
+      }
+    }
+
+    .quick-links,
+    .social-media,
+    .legal-info {
+      ul {
+        list-style-type: none;
+        padding: 0;
+
+        li {
+          margin-bottom: 6px; // Smaller spacing between links
+
+          a {
+            color: #ecf0f1;
+            text-decoration: none;
+
+            &:hover {
+              text-decoration: underline;
+            }
+          }
+        }
+      }
+    }
+
+    .social-media {
+      display: flex;
+      gap: 10px; // Reduced gap between social icons
+
+      a {
+        display: inline-block;
+        font-size: 16px; // Smaller icon size
+      }
+    }
+  }
+
+  .copyright {
+    text-align: center;
+    margin-top: 10px; // Reduced margin at the top
+    font-size: 10px; // Smaller copyright text
+    border-top: 1px solid #34495e;
+    padding-top: 5px; // Reduced padding at the top
+  }
+}
+
 /* jhipster-needle-scss-add-main JHipster will add new css style */
