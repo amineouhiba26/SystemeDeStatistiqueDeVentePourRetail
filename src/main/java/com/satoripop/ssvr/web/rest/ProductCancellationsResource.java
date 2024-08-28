@@ -182,4 +182,11 @@ public class ProductCancellationsResource {
     public List<ProductCancellationsDTO> getProductCancellationsByProductId(@PathVariable UUID productId) {
         return productCancellationsService.findAllByOrderItem_Product_Id(productId);
     }
+
+    @GetMapping("/product-cancellations/reasons")
+    public ResponseEntity<List<String>> getAllCancellationReasons() {
+        log.debug("REST request to get all cancellation reasons");
+        List<String> reasons = productCancellationsService.findAllCancellationReasons();
+        return ResponseEntity.ok().body(reasons);
+    }
 }

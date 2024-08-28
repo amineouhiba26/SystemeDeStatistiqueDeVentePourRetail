@@ -10,6 +10,7 @@ export interface IOrderItem {
   product?: IProduct | null;
   order?: IOrder | null;
   last_modified_by?: number | null;
+  productName?: string | null;
 }
 
 export type NewOrderItem = Omit<IOrderItem, 'id'> & { id: null };

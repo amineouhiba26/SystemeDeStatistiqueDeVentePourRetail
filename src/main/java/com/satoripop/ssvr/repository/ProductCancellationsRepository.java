@@ -17,4 +17,7 @@ import org.springframework.stereotype.Repository;
 public interface ProductCancellationsRepository extends JpaRepository<ProductCancellations, UUID> {
     List<ProductCancellations> findByOrderItemIdIn(List<UUID> orderItemIds);
     List<ProductCancellations> findAllByOrderItem_Product_Id(UUID productId);
+
+    @Query("SELECT pc.reason FROM ProductCancellations pc")
+    List<String> findCancellationReasons();
 }

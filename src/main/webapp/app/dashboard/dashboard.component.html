@@ -1,70 +1,52 @@
 <div class="dashboard">
   <div class="dashboard-content">
     <!-- Low Stock Threshold Input and Chart -->
-    <div class="chart-item low-stock-section">
-      <h4>Stock Checker</h4>
-      <canvas id="lowStockChart"></canvas>
-
-      <div class="input-container">
-        <input type="number" [(ngModel)]="threshold" (ngModelChange)="loadLowStockProducts()" min="1" placeholder="Enter threshold" />
-      </div>
+    <div class="cancellation_reasons_chart">
+      <h4>Cancellation Reasons</h4>
+      <jhi-cancellation-reasons></jhi-cancellation-reasons>
     </div>
 
     <!-- Order Status Chart -->
-    <div class="chart-item">
+    <div class="order_status_chart">
       <h4>Order Status Distribution</h4>
-      <div class="chart-scrollable">
-        <canvas id="statusChart"></canvas>
-      </div>
+      <jhi-order-status></jhi-order-status>
     </div>
 
     <!-- Top 10 Most Sold Products Chart -->
-    <div class="chart-item">
+    <div class="top10_most_sold_products">
       <h4>Top 10 Most Sold Products</h4>
-      <div class="chart-scrollable">
-        <canvas id="productChart"></canvas>
-      </div>
+      <jhi-top-products> </jhi-top-products>
     </div>
 
     <!-- Sales by Day of Week Chart -->
-    <div class="chart-item">
+    <div class="sales_by_day_chart">
       <h4>Sales by Day of the Week</h4>
-      <div class="chart-scrollable">
-        <canvas id="salesByDayOfWeekChart"></canvas>
-      </div>
+      <jhi-sales-by-day> </jhi-sales-by-day>
     </div>
 
     <!-- Weekly Sales Revenue Chart -->
-    <div class="chart-item">
+    <div class="sales_by_week_chart">
       <h4>Weekly Sales Revenue</h4>
-      <div class="chart-scrollable">
-        <canvas id="salesByWeekChart"></canvas>
-      </div>
+      <jhi-sales-by-week> </jhi-sales-by-week>
     </div>
 
     <!-- Sales by Month Chart -->
-    <div class="chart-item">
+    <div class="sales_by_month_chart">
       <h4>Sales by Month</h4>
-      <div class="chart-scrollable">
-        <canvas id="salesByMonthChart"></canvas>
-      </div>
+      <jhi-sales-by-month> </jhi-sales-by-month>
     </div>
 
     <!-- Sales by Hour and Sales by Payment Method Charts (Next to Each Other) -->
-    <div class="bottom-charts">
+    <div class="sales_by_hour_chart">
       <div class="bottom-chart">
         <h4>Sales by Hour</h4>
-        <div class="chart-scrollable">
-          <canvas id="salesByHourChart"></canvas>
-        </div>
+        <jhi-sales-by-hour></jhi-sales-by-hour>
       </div>
+    </div>
 
-      <div class="bottom-chart">
-        <h4>Sales by Payment Method</h4>
-        <div class="chart-scrollable">
-          <canvas id="paymentChart"></canvas>
-        </div>
-      </div>
+    <div class="payment_method_chart">
+      <h4>Sales by Payment Method</h4>
+      <jhi-payment-method></jhi-payment-method>
     </div>
   </div>
 </div>

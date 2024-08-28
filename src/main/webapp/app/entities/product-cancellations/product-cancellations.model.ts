@@ -5,7 +5,7 @@ export interface IProductCancellations {
   id: string;
   reason?: string | null;
   orderItem?: IOrderItem | null;
-  order?: Pick<IOrder, 'id'> | null;
+  order?: IOrder | null;
 }
 
 export type NewProductCancellations = Omit<IProductCancellations, 'id'> & { id: null };

@@ -27,6 +27,16 @@ public class OrderItemDTO extends AbstractAuditingEntityDTO<UUID> implements Ser
 
     private OrderDTO order;
 
+    private String productName; // Add this field
+
+    public String getProductName() {
+        return productName;
+    }
+
+    public void setProductName(String productName) {
+        this.productName = productName;
+    }
+
     public UUID getId() {
         return id;
     }

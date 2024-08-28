@@ -63,4 +63,6 @@ public interface ProductCancellationsService {
     List<ProductCancellationsDTO> findProductCancellationsByProductId(UUID productId);
 
     List<ProductCancellationsDTO> findAllByOrderItem_Product_Id(UUID productId);
+
+    List<String> findAllCancellationReasons();
 }

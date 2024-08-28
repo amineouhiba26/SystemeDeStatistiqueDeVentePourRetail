@@ -1,17 +1,17 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { LowStockChartComponent } from './low-stock-chart.component';
+import { SalesByWeekComponent } from './sales-by-week.component';
 
-describe('LowStockChartComponent', () => {
-  let component: LowStockChartComponent;
-  let fixture: ComponentFixture<LowStockChartComponent>;
+describe('SalesByWeekComponent', () => {
+  let component: SalesByWeekComponent;
+  let fixture: ComponentFixture<SalesByWeekComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [LowStockChartComponent],
+      declarations: [SalesByWeekComponent],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(LowStockChartComponent);
+    fixture = TestBed.createComponent(SalesByWeekComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

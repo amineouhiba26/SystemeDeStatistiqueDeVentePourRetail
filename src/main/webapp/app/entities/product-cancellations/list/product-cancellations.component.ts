@@ -133,4 +133,6 @@ export class ProductCancellationsComponent implements OnInit {
       return [predicate + ',' + ascendingQueryParam];
     }
   }
+
+  protected readonly name = name;
 }

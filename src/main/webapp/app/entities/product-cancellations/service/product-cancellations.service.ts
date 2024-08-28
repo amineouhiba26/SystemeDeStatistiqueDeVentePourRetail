@@ -6,6 +6,7 @@ import { isPresent } from 'app/core/util/operators';
 import { ApplicationConfigService } from 'app/core/config/application-config.service';
 import { createRequestOption } from 'app/core/request/request-util';
 import { IProductCancellations, NewProductCancellations } from '../product-cancellations.model';
+import { map } from 'rxjs/operators';
 
 export type PartialUpdateProductCancellations = Partial<IProductCancellations> & Pick<IProductCancellations, 'id'>;
 
@@ -15,6 +16,7 @@ export type EntityArrayResponseType = HttpResponse<IProductCancellations[]>;
 @Injectable({ providedIn: 'root' })
 export class ProductCancellationsService {
   protected resourceUrl = this.applicationConfigService.getEndpointFor('api/product-cancellations');
+  protected reasonsUrl = this.applicationConfigService.getEndpointFor('api/product-cancellations/reasons');
 
   constructor(protected http: HttpClient, protected applicationConfigService: ApplicationConfigService) {}
 
@@ -43,6 +45,9 @@ export class ProductCancellationsService {
       productCancellations,
       { observe: 'response' }
     );
+  }
+  getProductCancellationReasons(): Observable<string[]> {
+    return this.http.get<string[]>(this.reasonsUrl).pipe(catchError(this.handleError));
   }
 
   find(id: string): Observable<EntityResponseType> {

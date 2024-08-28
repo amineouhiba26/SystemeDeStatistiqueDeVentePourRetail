@@ -28,8 +28,14 @@ import { ErrorComponent } from './layouts/error/error.component';
 import { PriceHistoryChartComponent } from './entities/my-chart/my-chart.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { FormsModule } from '@angular/forms';
-import { LowStockChartComponent } from './low-stock-chart/low-stock-chart.component';
-import { PaymentMethodComponent } from './payment-method/payment-method.component';
+import { OrderStatusComponent } from './charts/order-status/order-status.component';
+import { TopProductsComponent } from './charts/top-products/top-products.component';
+import { SalesByDayComponent } from './charts/sales-by-day/sales-by-day.component';
+import { SalesByWeekComponent } from './charts/sales-by-week/sales-by-week.component';
+import { SalesByMonthComponent } from './charts/sales-by-month/sales-by-month.component';
+import { PaymentMethodComponent } from './charts/payment-method/payment-method.component';
+import { CancellationReasonsComponent } from './charts/cancellation-reasons/cancellation-reasons.component';
+import { SalesByHourComponent } from './charts/sales-by-hour/sales-by-hour.component';
 
 @NgModule({
   imports: [
@@ -69,8 +75,14 @@ import { PaymentMethodComponent } from './payment-method/payment-method.componen
     FooterComponent,
     PriceHistoryChartComponent,
     DashboardComponent,
-    LowStockChartComponent,
+    OrderStatusComponent,
+    TopProductsComponent,
+    SalesByDayComponent,
+    SalesByWeekComponent,
+    SalesByMonthComponent,
     PaymentMethodComponent,
+    CancellationReasonsComponent,
+    SalesByHourComponent,
   ],
   bootstrap: [MainComponent],
 })

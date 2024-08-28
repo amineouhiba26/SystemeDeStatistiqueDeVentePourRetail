@@ -112,4 +112,9 @@ public class ProductCancellationsServiceImpl implements ProductCancellationsServ
             .map(productCancellationsMapper::toDto)
             .collect(Collectors.toList());
     }
+
+    @Override
+    public List<String> findAllCancellationReasons() {
+        return productCancellationsRepository.findCancellationReasons();
+    }
 }
