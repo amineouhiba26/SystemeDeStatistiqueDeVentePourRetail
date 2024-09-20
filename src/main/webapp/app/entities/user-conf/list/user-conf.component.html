@@ -87,7 +87,7 @@
           <td>{{ userConf.phoneNumber }}</td>
           <td>
             <div *ngIf="userConf.role">
-              <a [routerLink]="['/role', userConf.role.id, 'view']">{{ userConf.role.id }}</a>
+              <a [routerLink]="['/role', userConf.role.id, 'view']">{{ userConf.role.name }}</a>
             </div>
           </td>
           <td class="text-end">

@@ -8,7 +8,7 @@ export interface IUserConf {
   lastName?: string | null;
   email?: string | null;
   phoneNumber?: number | null;
-  role?: Pick<IRole, 'id'> | null;
+  role?: IRole | null;
 }
 
 export type NewUserConf = Omit<IUserConf, 'id'> & { id: null };

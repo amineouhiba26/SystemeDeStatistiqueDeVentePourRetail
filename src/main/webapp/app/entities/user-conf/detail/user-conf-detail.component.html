@@ -41,7 +41,7 @@
         <dt><span jhiTranslate="ssvrApp.userConf.role">Role</span></dt>
         <dd>
           <div *ngIf="userConf.role">
-            <a [routerLink]="['/role', userConf.role.id, 'view']">{{ userConf.role.id }}</a>
+            <a [routerLink]="['/role', userConf.role.id, 'view']">{{ userConf.role.name }}</a>
           </div>
         </dd>
       </dl>
